@@ -1,0 +1,42 @@
+{
+    "ios": {
+        "sdkboxplay": {
+            "leaderboards": [
+                {
+                    "id": "max_floor", 
+                    "name": "max_floor"
+                }
+            ], 
+            "achievements": [
+                {
+                    "incremental": false, 
+                    "id": "5_floor", 
+                    "name": "5_floor"
+                }, 
+                {
+                    "incremental": false, 
+                    "id": "10_floor", 
+                    "name": "10_floor"
+                }, 
+                {
+                    "incremental": false, 
+                    "id": "15_floor", 
+                    "name": "15_floor"
+                }, 
+                {
+                    "incremental": false, 
+                    "id": "20_floor", 
+                    "name": "20_floor"
+                }, 
+                {
+                    "incremental": false, 
+                    "id": "25_floor", 
+                    "name": "25_floor"
+                }
+            ], 
+            "connect_on_start": true, 
+            "show_achievement_notification": true, 
+            "debug": true
+        }
+    }
+}

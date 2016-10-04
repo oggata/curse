@@ -2,9 +2,8 @@
     "project_type": "javascript",
 
     "debugMode" : 1,
-    "showFPS" : true,
-    "frameRate" : 60,
-    "noCache" : false,
+    "showFPS" : false,
+    "frameRate" : 30,
     "id" : "gameCanvas",
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
@@ -13,6 +12,31 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/app.js"
+        "src/Config/GameConfig.js",
+        "src/Layer/TopLayer.js",
+        "src/Layer/GameLayer.js",
+        "src/Layer/QuestLayer.js",
+        "src/Sprite/Player.js",
+        "src/Sprite/Enemy.js",
+        "src/Sprite/Gauge.js",
+        "src/Sprite/Friend.js",
+        "src/Sprite/DamageText.js",
+        "src/Sprite/DamageEffect.js",
+        "src/Sprite/Marker.js",
+        "src/Sprite/Item.js",
+        "src/Sprite/Header.js",
+        "src/Sprite/StatusButton.js",
+        "src/Util/Sound.js",
+        "src/Util/Storage.js",
+        "src/UI/CutIn.js",
+        "src/UI/ItemWindow.js",
+        "src/UI/MenuWindow.js",
+        "src/UI/StatusWindow.js",
+        "src/UI/DeadWindow.js",
+        "src/UI/Setting2.js",
+        "src/UI/BattleConsole.js",
+        "src/UI/MoveConsole.js",
+        "src/UI/MiniMap.js",
+        "src/UI/MapDisplayNode.js"
     ]
 }
