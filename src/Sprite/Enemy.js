@@ -191,10 +191,10 @@ var Enemy = cc.Node.extend({
             if (this.hp > 0) {
                 if (this.isBoss == 1) {
                     var _damage = 0;
-                    var _rand = getRandNumberFromRange(1, 3);
+                    var _rand = getRandNumberFromRange(1, 2);
                     var _playerHpRate = this.game.player.hp / this.game.player.maxHp;
-                    if (_playerHpRate <= 0.5) {
-                        _rand = getRandNumberFromRange(1, 4);
+                    if (_playerHpRate <= 0.3) {
+                        _rand = getRandNumberFromRange(1, 3);
                     }
                     if (_rand == 2) {
                         _damage = this.game.storage.getPlayerDamage(this.level);

@@ -53,7 +53,7 @@ var StatusWindow = cc.Node.extend({
                 this.errorLayer.setVisible(false);
             }, this);
         this.errorButton.setAnchorPoint(0.5, 0.5);
-        this.errorButton.setPosition(100, 100);
+        this.errorButton.setPosition(200, 60);
 
         this.menu = new cc.Menu(
             this.errorButton

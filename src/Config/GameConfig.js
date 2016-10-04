@@ -5,7 +5,7 @@ CONFIG.DEBUG_FLAG       = 0;
 CONFIG.DEBUG_STAGE_NUM  = 4;
 CONFIG.BGM_VOLUME       = 1;
 CONFIG.SE_VOLUME        = 1;
-CONFIG.CARD_SPEND_COST  = 1;
+CONFIG.CARD_SPEND_COST  = 3;
 
 CONFIG.START_MESSAGE = "......塔の中に辿り着いた.....\n出口を探して、次の階を目指さなくては....\n..この地点からはいつでも戻れるようだ";
 
@@ -627,7 +627,7 @@ CONFIG.ITEMS = [
             "id"         : 3,
             "product_id" : "status_defence", 
             "name"       : "防御力",
-            "skill_num"   : null,
+            "skill_num"   : 51,
             "image"      : "res/card202.png",
         },
         { 
@@ -687,11 +687,18 @@ CONFIG.ITEMS = [
             "image"      : "res/card010.png",
         },
         { 
-            "id"         : 11,
+            "id"         : 12,
             "product_id" : "status_reset", 
             "name"       : "miss",
             "skill_num"   : 8,
             "image"      : "res/card011.png",
+        },
+        { 
+            "id"         : 13,
+            "product_id" : "status_sp", 
+            "name"       : "sp",
+            "skill_num"   : null,
+            "image"      : "res/card012.png",
         },
 ];
 

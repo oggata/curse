@@ -159,12 +159,28 @@ var mapDisplayNode = cc.Node.extend({
         this.mapObjectC3Sprite.setPosition(40, 40);
         this.mapObjectC3Sprite.setVisible(false);
         this.addChild(this.mapObjectC3Sprite);
-
+/*
         this.mapObjectS2Sprite = cc.Sprite.create(
             "res/map_finish_2.png"
         );
         this.mapObjectS2Sprite.setAnchorPoint(0, 0);
         this.mapObjectS2Sprite.setPosition(0, 0);
+        this.mapObjectS2Sprite.setVisible(false);
+        this.addChild(this.mapObjectS2Sprite);
+*/
+        frameSeq = [];
+        for (var i = 0; i < 5; i++) {
+            var frame = cc.SpriteFrame.create("res/map_start.png", cc.rect(530 * i, 0, 530, 376));
+            frameSeq.push(frame);
+        }
+        this.wa = cc.Animation.create(frameSeq, 0.07);
+        this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
+        this.mapObjectS2Sprite = cc.Sprite.create("res/map_start.png", cc.rect(0, 0, 530, 376));
+        this.mapObjectS2Sprite.runAction(this.ra);
+        this.mapObjectS2Sprite.setOpacity(255 * 0.5);
+        this.mapObjectS2Sprite.setAnchorPoint(0, 0);
+        this.mapObjectS2Sprite.setPosition(140, 130);
+        this.mapObjectS2Sprite.setScale(0.64);
         this.mapObjectS2Sprite.setVisible(false);
         this.addChild(this.mapObjectS2Sprite);
 /*
@@ -179,19 +195,19 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/map_finish_3.png", cc.rect(530 * i, 0, 530, 376));
+            var frame = cc.SpriteFrame.create("res/map_start.png", cc.rect(530 * i, 0, 530, 376));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.07);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectS3Sprite = cc.Sprite.create("res/map_finish_3.png", cc.rect(0, 0, 530, 376));
+        this.mapObjectS3Sprite = cc.Sprite.create("res/map_start.png", cc.rect(0, 0, 530, 376));
         this.mapObjectS3Sprite.runAction(this.ra);
         this.mapObjectS3Sprite.setOpacity(255 * 0.5);
         this.mapObjectS3Sprite.setAnchorPoint(0, 0);
         this.mapObjectS3Sprite.setPosition(40, 40);
         this.mapObjectS3Sprite.setVisible(false);
         this.addChild(this.mapObjectS3Sprite);
-
+/*
         this.mapObjectF2Sprite = cc.Sprite.create(
             "res/map_finish_2.png"
         );
@@ -205,6 +221,37 @@ var mapDisplayNode = cc.Node.extend({
         );
         this.mapObjectF3Sprite.setAnchorPoint(0, 0);
         this.mapObjectF3Sprite.setPosition(0, 0);
+        this.mapObjectF3Sprite.setVisible(false);
+        this.addChild(this.mapObjectF3Sprite);
+*/
+        frameSeq = [];
+        for (var i = 0; i < 5; i++) {
+            var frame = cc.SpriteFrame.create("res/map_finish.png", cc.rect(530 * i, 0, 530, 376));
+            frameSeq.push(frame);
+        }
+        this.wa = cc.Animation.create(frameSeq, 0.07);
+        this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
+        this.mapObjectF2Sprite = cc.Sprite.create("res/map_finish.png", cc.rect(0, 0, 530, 376));
+        this.mapObjectF2Sprite.runAction(this.ra);
+        this.mapObjectF2Sprite.setOpacity(255 * 0.5);
+        this.mapObjectF2Sprite.setAnchorPoint(0, 0);
+        this.mapObjectF2Sprite.setPosition(140, 130);
+        this.mapObjectF2Sprite.setScale(0.64);
+        this.mapObjectF2Sprite.setVisible(false);
+        this.addChild(this.mapObjectF2Sprite);
+
+        frameSeq = [];
+        for (var i = 0; i < 5; i++) {
+            var frame = cc.SpriteFrame.create("res/map_finish.png", cc.rect(530 * i, 0, 530, 376));
+            frameSeq.push(frame);
+        }
+        this.wa = cc.Animation.create(frameSeq, 0.07);
+        this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
+        this.mapObjectF3Sprite = cc.Sprite.create("res/map_finish.png", cc.rect(0, 0, 530, 376));
+        this.mapObjectF3Sprite.runAction(this.ra);
+        this.mapObjectF3Sprite.setOpacity(255 * 0.5);
+        this.mapObjectF3Sprite.setAnchorPoint(0, 0);
+        this.mapObjectF3Sprite.setPosition(40, 40);
         this.mapObjectF3Sprite.setVisible(false);
         this.addChild(this.mapObjectF3Sprite);
     },

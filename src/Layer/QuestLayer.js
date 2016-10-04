@@ -681,10 +681,9 @@ var QuestLayer = cc.Layer.extend({
 
         this.header.coinCnt.setString(this.storage.tmpSoulsAmount);
         this.header.hpGauge.update(1);
-        this.header.mpGauge.update(this.storage.lastPlayerMp / 500);
+        this.header.mpGauge.update(this.storage.lastPlayerMp / 100);
         var _vFloorNum = ("000" + this.floorNumber).slice(-3);
         var floorData = this.storage.getStageNumber(this.floorNumber);
-        //this.header.stageLabel.setString(floorData['visibleNum']);
         this.nextFloorLable.setString(floorData['visibleNum'] + "から出発する");
     },
 

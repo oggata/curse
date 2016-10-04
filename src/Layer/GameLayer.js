@@ -176,11 +176,45 @@ var GameLayer = cc.Layer.extend({
         this.storage.forceReturnStageNum = stageNum;
         this.storage.saveLastAlivePlayerStatus(this);
 
-
         this.mapDisplayScale2 = 1;
         this.mapDisplayScaleDirection = "up";
 
+        //combo
+        this.comboSprite = cc.Sprite.create("res/combo.png");
+        this.comboSprite.retain();
+        this.comboSprite.setAnchorPoint(0, 0);
+        this.comboSprite.setPosition(460, 440);
+        this.windowObjectDisplayNode.addChild(this.comboSprite, 9999);
 
+        this.comboLabel = cc.LabelTTF.create("2", "Arial", 60);
+        //this.comboLabel.setAnchorPoint(0.5, 0);
+        this.comboLabel.setPosition(50, 50);
+        this.comboSprite.addChild(this.comboLabel);
+
+        this.spLabel = cc.LabelTTF.create("xxxxx", "Arial", 50);
+        //this.comboLabel.setAnchorPoint(0.5, 0);
+        this.spLabel.setPosition(460, 440);
+        this.windowObjectDisplayNode.addChild(this.spLabel,9999);
+/*
+        this.spMaxButton = new cc.MenuItemImage(
+            "res/button_max_sp.png",
+            "res/button_max_sp.png",
+            function() {
+                this.player.mp = 0;
+                this.battleConsole.isMaxSpCnt = 5;
+                this.battleConsole.allUse();
+            }, this);
+        this.spMaxButton.setAnchorPoint(0, 0);
+        this.spMaxButton.setPosition(430,430);
+*/
+/*
+        var menu1 = new cc.Menu(
+            this.spMaxButton
+        );
+        menu1.x = 0;
+        menu1.y = 0;
+        this.windowObjectDisplayNode.addChild(menu1,99999);
+*/
         this.battleConsolePos = 0;
         this.battleConsoleDirection = "up";
         cc.log("このステージは" + stageNum + "です. mapIdは" + this.mapId + ",startPosは" + this.startPosNum + "finishPosは" + this.finishPosNum + "です.Soulは" + this.storage.lastDroppedSoulPos + "にあります");
@@ -1008,7 +1042,7 @@ var GameLayer = cc.Layer.extend({
         if (this._stageNum == 3) {
             _enemyCount = 4;
         }
-        //_enemyCount = 2;
+        //_enemyCount = 30;
         for (var i = 0; i < _enemyCount; i++) {
             var _enemyPos = this.setPositions[0];
             this.addEnemyByPos(_enemyPos);

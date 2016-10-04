@@ -8,9 +8,10 @@ var Player = cc.Node.extend({
     isDamageOn: false,
     damageCnt: 0,
     isOwnKey: false,
-    maxMp : 500,
-    mp : 500,
+    maxMp : 100,
+    mp : 100,
     posNum : 0,
+    comboCnt : 0,
 
     ctor: function(game, code) {
         this._super();
@@ -18,7 +19,7 @@ var Player = cc.Node.extend({
         this.initializeParam(code);
         this.initSprite();
         this.maxHp = this.game.storage.getMaxHp();
-        this.maxMp = 500;
+        this.maxMp = 100;
     },
 
     addMp : function(mpCnt){
@@ -85,6 +86,8 @@ var Player = cc.Node.extend({
         playSE001(this.game.storage);
         cc.log("attack");
 
+        this.comboCnt = comboCnt;
+
         var _damage = this.game.storage.getEnemyDamage(this.targetEnemy.level,_product_id);
         var skillNum = "";
         var _items = CONFIG.ITEMS;
@@ -118,6 +121,28 @@ var Player = cc.Node.extend({
     initializeParam: function(code) {},
 
     update: function() {
+
+        if(this.targetEnemy){
+            if(this.targetEnemy.isDamageOn == true){
+                var _txt = "";
+                if(this.comboCnt == 1){
+                    _txt = ""
+                }else if(this.comboCnt == 2){
+                    _txt = this.comboCnt + "[x1.2]";
+                    this.game.comboLabel.setString(_txt);
+                    this.game.comboSprite.setVisible(true);
+                }else if(this.comboCnt == 3){
+                    _txt = this.comboCnt + "[x1.5]";
+                    this.game.comboLabel.setString(_txt);
+                    this.game.comboSprite.setVisible(true);
+                }
+            }else{
+                this.game.comboSprite.setVisible(false);
+            } 
+        }else{
+            this.game.comboSprite.setVisible(false);
+        }
+
         if (this.hp <= 0) {
             this.hp = 0;
         }
@@ -149,6 +174,12 @@ var Player = cc.Node.extend({
 
     damage: function(damagePoint,damagetype) {
         playSE004(this.game.storage);
+
+        //もし手持ちにguardカードがあった場合、そちらがダメージを受けて、無くなる
+        if(this.game.battleConsole.isDefence() == true){
+            return;
+        }
+
         this.hp = this.hp - damagePoint;
         if (this.hp < 0) {
             this.hp = 0;
@@ -177,7 +208,7 @@ var Player = cc.Node.extend({
     },
 
     spendActionCost: function() {
-        this.mp-=CONFIG.CARD_SPEND_COST;
+        //this.mp-=CONFIG.CARD_SPEND_COST;
         this.game.enemyExpendCost();
     },
 
