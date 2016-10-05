@@ -247,7 +247,8 @@ var battleConsole = cc.Node.extend({
                 }
                 // 1/6でリセットカード
                 var _rand3 = getRandNumberFromRange(1, 6);
-                if(_items[i]['product_id'] == 'status_reset' && _rand3 == 1){
+                var _isSet3 = this.isSetToDeck('status_reset');
+                if(_items[i]['product_id'] == 'status_reset' && _rand3 == 1 && _isSet3 == false){
                     _cards.push(_items[i]);
                 }
                 // 1/3でミスカード
@@ -257,7 +258,8 @@ var battleConsole = cc.Node.extend({
                 }
                 // 1/3で防御カード
                 var _rand5 = getRandNumberFromRange(1, 3);
-                if(_items[i]['product_id'] == 'status_defence' && _rand5 == 1){
+                var _isSet5 = this.isSetToDeck('status_defence');
+                if(_items[i]['product_id'] == 'status_defence' && _rand5 == 1 && _isSet5 == false){
                     _cards.push(_items[i]);
                 }
 
@@ -287,9 +289,10 @@ var battleConsole = cc.Node.extend({
             return this.maxSpProductId;
         }
 
-        //mpがたまっていたらspのカードを返す
-        var _rand2 = getRandNumberFromRange(1, 5);
-        if(this.game.player.mp == this.game.player.maxMp && _rand2 == 1){
+        //mpがたまっていたらspのカードを返す && 今出ていない場合のみ
+        var _rand6 = getRandNumberFromRange(1, 5);
+        var _isSet6 = this.isSetToDeck('status_sp');
+        if(this.game.player.mp == this.game.player.maxMp && _rand6 == 1 && _isSet6 == false){
             return "status_sp";
         }
 
@@ -314,6 +317,15 @@ var battleConsole = cc.Node.extend({
             this.rCount = 60;
             this.cards[i].rightGauge.update(1);
         }
+    },
+
+    isSetToDeck:function(productId) {
+        for (var i = 0; i < this.cards.length; i++) {
+            if(this.cards[i].productId ==  productId){
+                return true;
+            }
+        }
+        return false;
     },
 
     isDefence:function(){

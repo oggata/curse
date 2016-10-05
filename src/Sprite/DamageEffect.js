@@ -202,7 +202,7 @@ var DamageEffect = cc.Node.extend({
                 this.imageYCnt = 1;
                 this.imageWidth = 240;
                 this.imageHeight = 240;
-                this.imgScale = 2;
+                this.imgScale = 3;
                 break;
             case 301:
                 //爆発(必殺)
@@ -220,7 +220,7 @@ var DamageEffect = cc.Node.extend({
                 this.imageYCnt = 5;
                 this.imageWidth = 320;
                 this.imageHeight = 240;
-                this.imgScale = 5;
+                this.imgScale = 3;
                 break;
             case 303:
                 //氷(必殺)

@@ -169,7 +169,7 @@ var Enemy = cc.Node.extend({
 
     expendActionCostByPlayerWalking: function() {
         if (this.mode == "human") return;
-        this.actionCost -= 60;
+        this.actionCost -= 60*2;
         if (this.actionCost <= 0) {
             this.actionCost = this.maxActionCost;
             this.attackToPlayer();
@@ -190,25 +190,20 @@ var Enemy = cc.Node.extend({
         if (this.getDistanceBetweenTwoPositions(this.game.player.posNum, this.posNum) <= 1) {
             if (this.hp > 0) {
                 if (this.isBoss == 1) {
-                    var _damage = 0;
-                    var _rand = getRandNumberFromRange(1, 2);
-                    var _playerHpRate = this.game.player.hp / this.game.player.maxHp;
-                    if (_playerHpRate <= 0.3) {
-                        _rand = getRandNumberFromRange(1, 3);
-                    }
-                    if (_rand == 2) {
-                        _damage = this.game.storage.getPlayerDamage(this.level);
+                    var _rand = getRandNumberFromRange(1, 10);
+                    if (_rand == 2 || _rand == 3) {
+                        this.game.player.damage(1,1);
+                    }else{
+                        var _damage = this.game.storage.getPlayerDamage(this.level);
                         this.game.player.damage(_damage,1);
                         this.attackCnt = 0;
                         this.game.windowScale = 1;
                         this.game.windowNode.setScale(1);
-                    } else {
-                        this.game.player.damage(0,1);
                     }
                 } else {
                     var _rand = getRandNumberFromRange(1, 10);
                     if (_rand == 2) {
-                        this.game.player.damage(0,1);
+                        this.game.player.damage(1,1);
                     } else {
                         var _damage = this.game.storage.getPlayerDamage(this.level);
                         this.game.player.damage(_damage,1);

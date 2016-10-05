@@ -105,7 +105,7 @@ var QuestLayer = cc.Layer.extend({
 
         this.cutIn2 = new CutIn2(this);
         this.addChild(this.cutIn2, 999);
-        /*
+        
                 if (this.maxClearedFloor == 1) {
                     this.messages = CONFIG.GUIDE_MESSAGE_001;
                 }
@@ -121,7 +121,7 @@ var QuestLayer = cc.Layer.extend({
                 if (this.maxClearedFloor == 5) {
                     this.messages = CONFIG.GUIDE_MESSAGE_005;
                 }
-        */
+        
         this.isSendedMsg = false;
         this.tmpY = this.charactorSprite.getPosition().y;
         this.moveDirection = "up";

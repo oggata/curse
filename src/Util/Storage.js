@@ -19,7 +19,7 @@ var Storage = cc.Class.extend({
         this.lastMapId = 0;
         this.lastPlayerPosNum = 0;
         this.lastPlayerHp = 100;
-        this.lastPlayerMp = 500;
+        this.lastPlayerMp = 0;
         this.lastUpdatedTime = parseInt(new Date() / 1000);
     },
 

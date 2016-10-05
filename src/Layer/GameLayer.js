@@ -224,7 +224,7 @@ var GameLayer = cc.Layer.extend({
     update: function(dt) {
         this.cutIn.update();
         this.moveConsole.update();
-
+//cc.log(this.magicCnt);
         //this.battleConsole
         if (this.battleConsoleDirection == "up") {
             this.battleConsolePos += 1.5;
