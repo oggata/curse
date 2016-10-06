@@ -2,8 +2,9 @@ var battleCard = cc.Node.extend({
     ctor: function(game, battleConsole, _productId) {
         this._super();
         this.game = game;
-
         this.battleConsole = battleConsole;
+
+        this.isStrongMode = false;
 
         var _items = CONFIG.ITEMS;
         this.productId = _productId;
@@ -23,10 +24,62 @@ var battleCard = cc.Node.extend({
         this.isMain = false;
         this.isCritical = false;
 
-        this.card = new cc.MenuItemImage(
-            this.image,
-            this.image,
-            function() {
+        this.card = new ccui.Button(this.image, this.image);
+        this.card.addTouchEventListener(this.touchEvent, this);
+        this.card.setPosition(0,250);
+        this.addChild(this.card);
+
+        this.waitGauge = new Gauge2(162, 213, 'black');
+        this.waitGauge.setAnchorPoint(0, 0);
+        this.waitGauge.setOpacity(255 * 0.5);
+        this.waitGauge.setPosition(0, 0);
+        this.card.addChild(this.waitGauge, 999);
+        this.cardScale = 1;
+        this.cardOpacity = 1;
+
+        this.damageSprite = cc.Sprite.create("res/card_damage.png");
+        this.damageSprite.retain();
+        this.damageSprite.setAnchorPoint(0, 0);
+        this.card.addChild(this.damageSprite);
+        this.damageSprite.setVisible(false);
+
+        //バトルエフェクト
+        this.imageWidth = 170;
+        this.imageHeight = 1440/6;
+        this.imageXCnt = 1;
+        this.imageYCnt = 6;
+        var frameSeqEffect2 = [];
+        for (var y = 0; y < this.imageYCnt; y++) {
+            for (var x = 0; x < this.imageXCnt; x++) {
+                var frame = cc.SpriteFrame.create("res/card_animation.png", cc.rect(this.imageWidth * x, this.imageHeight * y, this.imageWidth, this.imageHeight));
+                frameSeqEffect2.push(frame);
+            }
+        }
+        /*
+        this.wa = cc.Animation.create(frameSeqEffect2, 0.1);
+        this.ra = cc.Repeat.create(cc.Animate.create(this.wa), 1);
+        this.attackAnimation = cc.Sprite.create("res/card_animation.png", cc.rect(0, 0, this.imageWidth, this.imageHeight));
+        this.attackAnimation.runAction(this.ra);
+        this.attackAnimation.setAnchorPoint(0,0);
+        this.card.addChild(this.attackAnimation);
+        //this.attackAnimation.setScale(this.imgScale,this.imgScale);
+        //this.attackAnimation.setOpacity(255*0.9);
+        //this.effectTime = 0;
+        //this.testTime = 0;
+        */
+    },
+
+    touchEvent: function(sender, type){
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                cc.log("Touch Down");
+                break;
+ 
+            case ccui.Widget.TOUCH_MOVED:
+                cc.log("Touch Move");
+                break;
+ 
+            case ccui.Widget.TOUCH_ENDED:
                 if (this.game.isSetMenuWindow()) return;
                 if (this.game.player.hp <= 0) return;
                 if (this.game.player.targetEnemy.hp <= 0) return;
@@ -65,52 +118,15 @@ var battleCard = cc.Node.extend({
                 this.isMain = true;
                 this.battleConsole.rCount = 0;
                 this.game.player.mp+=CONFIG.CARD_SPEND_COST;
-            },
-            this);
-
-        var menu = new cc.Menu(this.card);
-        menu.x = 0;
-        menu.y = 250;
-        this.addChild(menu, 1);
-
-        this.rightGauge = new Gauge2(162, 213, 'black');
-        this.rightGauge.setAnchorPoint(0, 0);
-        this.rightGauge.setOpacity(255 * 0.5);
-        this.rightGauge.setPosition(0, 0);
-        this.card.addChild(this.rightGauge, 999);
-        this.cardScale = 1;
-        this.cardOpacity = 1;
-
-        this.damageSprite = cc.Sprite.create("res/card_damage.png");
-        this.damageSprite.retain();
-        this.damageSprite.setAnchorPoint(0, 0);
-        this.card.addChild(this.damageSprite);
-        this.damageSprite.setVisible(false);
-
-        //バトルエフェクト
-        this.imageWidth = 170;
-        this.imageHeight = 1440/6;
-        this.imageXCnt = 1;
-        this.imageYCnt = 6;
-        var frameSeqEffect2 = [];
-        for (var y = 0; y < this.imageYCnt; y++) {
-            for (var x = 0; x < this.imageXCnt; x++) {
-                var frame = cc.SpriteFrame.create("res/card_animation.png", cc.rect(this.imageWidth * x, this.imageHeight * y, this.imageWidth, this.imageHeight));
-                frameSeqEffect2.push(frame);
-            }
+                break;
+ 
+            case ccui.Widget.TOUCH_CANCELED:
+                cc.log("Touch Cancelled");
+                break;
+ 
+            default:
+                break;
         }
-        /*
-        this.wa = cc.Animation.create(frameSeqEffect2, 0.1);
-        this.ra = cc.Repeat.create(cc.Animate.create(this.wa), 1);
-        this.attackAnimation = cc.Sprite.create("res/card_animation.png", cc.rect(0, 0, this.imageWidth, this.imageHeight));
-        this.attackAnimation.runAction(this.ra);
-        this.attackAnimation.setAnchorPoint(0,0);
-        this.card.addChild(this.attackAnimation);
-        //this.attackAnimation.setScale(this.imgScale,this.imgScale);
-        //this.attackAnimation.setOpacity(255*0.9);
-        //this.effectTime = 0;
-        //this.testTime = 0;
-        */
     },
 
     setCardPos: function(posNum) {
@@ -128,7 +144,7 @@ var battleCard = cc.Node.extend({
         }
 
         if(this.useCnt == 0){
-            this.rightGauge.update(this.battleConsole.rCount / 60);
+            this.waitGauge.update(this.battleConsole.rCount / 60);
         }
 
         if (this.useCnt >= 1) {
@@ -186,7 +202,7 @@ var battleCard = cc.Node.extend({
                         break;
                     case "status_miss":
                         break;
-                    case "status_defence":
+                    case "status_guard":
                         break;
                     case "status_reset":
                         this.battleConsole.allUse();
@@ -234,7 +250,7 @@ var battleConsole = cc.Node.extend({
         var _items = CONFIG.ITEMS;
         var _cards = [];
         for (var i = 0; i < _items.length; i++) {
-            if(_items[i]['skill_num'] != null){
+            if(_items[i]['type'] == "battle"){
                 var _rand = getRandNumberFromRange(1,5);
                 // 1/5の死亡
                 if(_items[i]['product_id'] == 'status_killed' && _rand == 1){
@@ -258,8 +274,8 @@ var battleConsole = cc.Node.extend({
                 }
                 // 1/3で防御カード
                 var _rand5 = getRandNumberFromRange(1, 3);
-                var _isSet5 = this.isSetToDeck('status_defence');
-                if(_items[i]['product_id'] == 'status_defence' && _rand5 == 1 && _isSet5 == false){
+                var _isSet5 = this.isSetToDeck('status_guard');
+                if(_items[i]['product_id'] == 'status_guard' && _rand5 == 1 && _isSet5 == false){
                     _cards.push(_items[i]);
                 }
 
@@ -315,7 +331,7 @@ var battleConsole = cc.Node.extend({
         for (var i = 0; i < this.cards.length; i++) {
             this.cards[i].useCnt = 1;
             this.rCount = 60;
-            this.cards[i].rightGauge.update(1);
+            this.cards[i].waitGauge.update(1);
         }
     },
 
@@ -331,10 +347,10 @@ var battleConsole = cc.Node.extend({
     isDefence:function(){
         for (var i = 0; i < this.cards.length; i++) {
             cc.log(this.cards[i].productId);
-            if(this.cards[i].productId == "status_defence"){
+            if(this.cards[i].productId == "status_guard"){
                 this.cards[i].useCnt = 1;
                 //this.rCount = 60;
-                this.cards[i].rightGauge.update(1);
+                this.cards[i].waitGauge.update(1);
                 this.cards[i].damageSprite.setVisible(true);
                 return true;
             }

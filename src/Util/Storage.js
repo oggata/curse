@@ -426,6 +426,36 @@ var Storage = cc.Class.extend({
         return _mp;
     },
 
+    getAmountFromData: function(productId) {
+        var _hp = 0;
+        var stData = this.itemData;
+        for (var stDataKey in stData) {
+            if (stData.hasOwnProperty(stDataKey)) {
+                var value = stData[stDataKey];
+                var toObj = JSON.parse(value);
+                if (toObj['id'] == productId) {
+                    return this.getExpAmountByLevel(toObj['amount']);
+                }
+            }
+        }
+        return null;
+    },
+
+    getLevelFromData: function(productId) {
+        var _hp = 0;
+        var stData = this.itemData;
+        for (var stDataKey in stData) {
+            if (stData.hasOwnProperty(stDataKey)) {
+                var value = stData[stDataKey];
+                var toObj = JSON.parse(value);
+                if (toObj['id'] == productId) {
+                    return toObj['amount'];
+                }
+            }
+        }
+        return null;
+    },
+
     getMaxHp: function() {
         var _hp = 0;
         var stData = this.itemData;
@@ -476,28 +506,7 @@ var Storage = cc.Class.extend({
         }
         return _damage;
     },
-/*
-    getEnemyDamageByMagic: function(enemyDefenceLebel) {
-        //（攻撃力÷２）ー（防御力÷４）
-        var playerAttackPower = 0;
-        var stData = this.itemData;
-        for (var stDataKey in stData) {
-            if (stData.hasOwnProperty(stDataKey)) {
-                var value = stData[stDataKey];
-                var toObj = JSON.parse(value);
-                if (toObj['id'] == "status_magic") {
-                    playerAttackPower = this.getAttackPowerByLevel(toObj['amount']) * 1.8;
-                }
-            }
-        }
-        var enemyDefencePower = this.getDefencePowerByLevel(enemyDefenceLebel);
-        var _damage = Math.ceil(playerAttackPower / 2 - enemyDefencePower / 4);
-        if (_damage <= 0) {
-            _damage = 1;
-        }
-        return _damage;
-    },
-*/
+
     getPlayerDamage: function(enemyAttackLevel) {
         //（攻撃力÷２）ー（防御力÷４）
         var playerDefencePower = 0;

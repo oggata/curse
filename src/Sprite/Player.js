@@ -34,19 +34,19 @@ var Player = cc.Node.extend({
         }
     },
 
-    checkIsCritical:function(enemy,effectNum){
-        if (enemy.weak.indexOf(effectNum) >= 0){
+    checkIsCritical:function(enemy,productId){
+        if (enemy.weak.indexOf(productId) >= 0){
             return "weak";
         }
-        if (enemy.block.indexOf(effectNum) >= 0){
+        if (enemy.block.indexOf(productId) >= 0){
             return "block";
         }
         return null;
     },
 
-    getEffectType: function(_product_id){
+    getEffectType: function(productId){
         var _effectNum = 0;
-        switch (_product_id) {
+        switch (productId) {
             case "status_attack":
                 _effectNum = 3;
                 break;
@@ -63,9 +63,9 @@ var Player = cc.Node.extend({
         return _effectNum;
     },
 
-    getCriticalEffectType: function(_product_id){
+    getCriticalEffectType: function(productId){
         var _effectNum = 0;
-        switch (_product_id) {
+        switch (productId) {
             case "status_attack":
                 _effectNum = 101;
                 break;
@@ -82,35 +82,28 @@ var Player = cc.Node.extend({
         return _effectNum;
     },
 
-    attack: function(_product_id,isClitical,comboCnt) {
+    attack: function(productId,isClitical,comboCnt) {
         playSE001(this.game.storage);
         cc.log("attack");
 
         this.comboCnt = comboCnt;
 
-        var _damage = this.game.storage.getEnemyDamage(this.targetEnemy.level,_product_id);
-        var skillNum = "";
-        var _items = CONFIG.ITEMS;
-        for (var i = 0; i < _items.length; i++) {
-            if(_items[i]['product_id'] == _product_id){
-                skillNum = _items[i]['skill_num'];
-            }
-        }
+        var _damage = this.game.storage.getEnemyDamage(this.targetEnemy.level,productId);
 
         var _effectNum = 0;
         if(isClitical == true){
-            _effectNum = this.getCriticalEffectType(_product_id);
+            _effectNum = this.getCriticalEffectType(productId);
             _damage = _damage * 4;
         }else{
-            _effectNum = this.getEffectType(_product_id);
+            _effectNum = this.getEffectType(productId);
         }
 
         if (this.targetEnemy != null && this.hp > 0) {
             var _hitOption = null;
-            if(this.checkIsCritical(this.targetEnemy,skillNum) == "weak"){
+            if(this.checkIsCritical(this.targetEnemy,productId) == "weak"){
                 _damage = Math.floor(_damage * 1.7);
                 _hitOption = "weak";
-            }else if(this.checkIsCritical(this.targetEnemy,skillNum) == "block"){
+            }else if(this.checkIsCritical(this.targetEnemy,productId) == "block"){
                 _damage = Math.floor(_damage / 10);
                 _hitOption = "block";
             }
@@ -124,16 +117,10 @@ var Player = cc.Node.extend({
 
         if(this.targetEnemy){
             if(this.targetEnemy.isDamageOn == true){
-                var _txt = "";
-                if(this.comboCnt == 1){
-                    _txt = ""
-                }else if(this.comboCnt == 2){
-                    _txt = this.comboCnt + "[x1.2]";
-                    this.game.comboLabel.setString(_txt);
-                    this.game.comboSprite.setVisible(true);
-                }else if(this.comboCnt == 3){
-                    _txt = this.comboCnt + "[x1.5]";
-                    this.game.comboLabel.setString(_txt);
+                if(this.comboCnt <= 1){
+                    this.game.comboSprite.setVisible(false);
+                }else{
+                    this.game.comboLabel.setString(this.comboCnt);
                     this.game.comboSprite.setVisible(true);
                 }
             }else{

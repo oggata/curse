@@ -6,7 +6,7 @@ var miniMap = cc.Node.extend({
         this.miniMapNode = cc.Node.create();
         this.addChild(this.miniMapNode, 99999999);
         this.miniMapNode.setAnchorPoint(0.5, 0.5);
-        this.miniMapNode.setPosition(0, 920);
+        this.miniMapNode.setPosition(0, 980);
         this.miniMapNode.setScale(0.4, 0.4);
         //this.miniMapNode.setScale(1, 1);
         this.miniMapNode.setOpacity(255 * 0.5);

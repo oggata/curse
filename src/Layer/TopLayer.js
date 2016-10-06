@@ -71,36 +71,6 @@ var TopLayer = cc.Layer.extend({
 
         this.touchingFlg = 0;
 
-        /*
-                var menu = new cc.Menu(
-                    new cc.MenuItemFont("Connect", function() {
-                        sdkbox.PluginSdkboxPlay.signin();
-                    }),
-                    new cc.MenuItemFont("Disconnect", function() {
-                        sdkbox.PluginSdkboxPlay.signout();
-                    }),
-                    new cc.MenuItemFont("Show Leaderboard high_score_ranking", function() {
-                        sdkbox.PluginSdkboxPlay.showLeaderboard("max_floor");
-                    }),
-                    new cc.MenuItemFont("Achievements", function() {
-                        sdkbox.PluginSdkboxPlay.showAchievements();
-                    }),
-                    new cc.MenuItemFont("Unlock get_10_items", function() {
-                        sdkbox.PluginSdkboxPlay.unlockAchievement("5_floor");
-                    }),
-                    new cc.MenuItemFont("Unlock get_20_items", function() {
-                        sdkbox.PluginSdkboxPlay.unlockAchievement("10_floor");
-                    }),
-                    new cc.MenuItemFont("Submit Score 1000", function() {
-                        sdkbox.PluginSdkboxPlay.submitScore("max_floor", 1);
-                    })
-                );
-
-                menu.alignItemsVerticallyWithPadding(5);
-                this.addChild(menu);
-        */
-
-
         var initSDK = function() {
             if ("undefined" == typeof(sdkbox)) {
                 console.log("sdkbox is not exist")

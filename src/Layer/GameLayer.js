@@ -29,6 +29,7 @@ var GameLayer = cc.Layer.extend({
             this.isBossFloor = 0;
             playBGM(this.storage);
         }
+
         //MapIDを選択
         this.mapId = this.getMapId();
         this.MAP_POSITIONS = CONFIG.MAP_POSITIONS[this.mapId];
@@ -43,18 +44,17 @@ var GameLayer = cc.Layer.extend({
         //window-base用
         this.windowNode = cc.LayerColor.create(new cc.Color(0, 0, 0, 255), 640, 540);
         this.addChild(this.windowNode);
-        this.windowNode.setPosition(0, 400);
+        this.windowNode.setPosition(0, 440);
 
         //window-map-display用
         this.mapDisplayNode = new mapDisplayNode(this);
         this.windowNode.addChild(this.mapDisplayNode);
         this.mapDisplayNode.setAnchorPoint(0, 0);
+        this.mapDisplayNode.setPosition(0,40);
 
         //window-object-display用
         this.windowObjectDisplayNode = cc.Node.create();
         this.windowNode.addChild(this.windowObjectDisplayNode);
-
-        //this.windowObjectDisplayNode.addChild(_item);
 
         //window-trasition用
         this.trasitionCnt = 0;
@@ -111,21 +111,10 @@ var GameLayer = cc.Layer.extend({
         if (this.MAP_POSITIONS[this.chkPosNum] != 1) {
             this.player.directionNum = 4;
         }
-        /*
-                this.powerCnt = cc.LabelTTF.create("xxx", "Arial", 50);
-                this.powerCnt.setAnchorPoint(0.5, 0);
-                this.powerCnt.setPosition(320, 320);
-                this.addChild(this.powerCnt);
-        */
+
         //ボタン、コントローラーを作成する
         this._setButtons();
-        /*
-                //nextへのwindow
-                this.menuWindow = new MenuWindow(this);
-                this.menuWindow.setPosition(0, 0);
-                this.addChild(this.menuWindow, 999);
-                this.menuWindow.setVisible(false);
-        */
+
         //header
         this.header = new Header(this);
         this.header.setPosition(15, 1136 - 100);
@@ -141,7 +130,6 @@ var GameLayer = cc.Layer.extend({
         this.blockedPositions = [];
         this.scheduleUpdate();
 
-        //this.header.stageLabel.setString("F" + ("000" + this._stageNum).slice(-3));
         var floorData = this.storage.getStageNumber(this._stageNum);
         this.header.stageLabel.setString(floorData['visibleNum']);
 
@@ -183,38 +171,28 @@ var GameLayer = cc.Layer.extend({
         this.comboSprite = cc.Sprite.create("res/combo.png");
         this.comboSprite.retain();
         this.comboSprite.setAnchorPoint(0, 0);
-        this.comboSprite.setPosition(460, 440);
+        this.comboSprite.setPosition(250, 500);
         this.windowObjectDisplayNode.addChild(this.comboSprite, 9999);
+        this.comboSprite.setVisible(false);
 
-        this.comboLabel = cc.LabelTTF.create("2", "Arial", 60);
-        //this.comboLabel.setAnchorPoint(0.5, 0);
-        this.comboLabel.setPosition(50, 50);
+        this.comboLabel = cc.LabelTTF.create("2", "Arial", 32);
+        this.comboLabel.setFontFillColor(new cc.Color(255, 255, 255, 255));
+        this.comboLabel.setAnchorPoint(1, 0);
+        this.comboLabel.enableStroke(new cc.Color(0, 0, 0, 255), 3, false);
+        this.comboLabel.setPosition(-7, 0);
         this.comboSprite.addChild(this.comboLabel);
 
+        this.spSprite = cc.Sprite.create("res/combo.png");
+        this.spSprite.retain();
+        this.spSprite.setAnchorPoint(0, 0);
+        this.spSprite.setPosition(250, 500);
+        this.windowObjectDisplayNode.addChild(this.spSprite, 9999);
+        this.spSprite.setVisible(false);
+
         this.spLabel = cc.LabelTTF.create("xxxxx", "Arial", 50);
-        //this.comboLabel.setAnchorPoint(0.5, 0);
         this.spLabel.setPosition(460, 440);
         this.windowObjectDisplayNode.addChild(this.spLabel,9999);
-/*
-        this.spMaxButton = new cc.MenuItemImage(
-            "res/button_max_sp.png",
-            "res/button_max_sp.png",
-            function() {
-                this.player.mp = 0;
-                this.battleConsole.isMaxSpCnt = 5;
-                this.battleConsole.allUse();
-            }, this);
-        this.spMaxButton.setAnchorPoint(0, 0);
-        this.spMaxButton.setPosition(430,430);
-*/
-/*
-        var menu1 = new cc.Menu(
-            this.spMaxButton
-        );
-        menu1.x = 0;
-        menu1.y = 0;
-        this.windowObjectDisplayNode.addChild(menu1,99999);
-*/
+
         this.battleConsolePos = 0;
         this.battleConsoleDirection = "up";
         cc.log("このステージは" + stageNum + "です. mapIdは" + this.mapId + ",startPosは" + this.startPosNum + "finishPosは" + this.finishPosNum + "です.Soulは" + this.storage.lastDroppedSoulPos + "にあります");
@@ -224,8 +202,7 @@ var GameLayer = cc.Layer.extend({
     update: function(dt) {
         this.cutIn.update();
         this.moveConsole.update();
-//cc.log(this.magicCnt);
-        //this.battleConsole
+
         if (this.battleConsoleDirection == "up") {
             this.battleConsolePos += 1.5;
         } else {
@@ -240,32 +217,10 @@ var GameLayer = cc.Layer.extend({
         this.leftHand3Sprite.setPosition(0, this.battleConsolePos * -1);
         this.rightHand3Sprite.setPosition(0, this.battleConsolePos * -1);
 
-
         if (this.battleTime >= 1) {
             this.battleTime++;
         }
-        /*
-                if (this.friends.length == 0 && this.battleTime >= 30 * 3 && this.calledFriendCnt >= 1) {
-                    var friend = new Friend(this, 1);
-                    this.friends.push(friend);
-                    this.windowObjectDisplayNode.addChild(friend,999999);
-                    //friend.setPosition(0, 50);
-                }
 
-                if (this.friends.length == 1 && this.battleTime >= 30 * 10 && this.calledFriendCnt >= 2) {
-                    var friend = new Friend(this, 2);
-                    this.friends.push(friend);
-                    this.windowObjectDisplayNode.addChild(friend,999999);
-                    //friend.setPosition(0, 50);
-                }
-
-                for (var i = 0; i < this.friends.length; i++) {
-                    if (this.friends[i].update() == false) {
-                        this.windowObjectDisplayNode.removeChild(this.friends[i]);
-                        this.friends.splice(i, 1);
-                    }
-                }
-        */
         if (this.isGameClearCount >= 1) {
             this.isGameClearCount++;
             if (this.isGameClearCount >= 30 * 5 && this.isMovedQuestPage == false) {
@@ -274,10 +229,8 @@ var GameLayer = cc.Layer.extend({
             }
             return;
         }
-        //this.header.hpLabel.setString(this.player.hp + "/" + this.player.maxHp);
-        //this.header.mpLabel.setString(this.player.mp + "/" + this.player.maxMp);
+
         this.header.coinCnt.setString(Math.ceil(this.storage.tmpSoulsAmount));
-        //this.header.gemCnt.setString(Math.ceil(this.storage.totalGemAmount));
         var _isEnemyFlg = 0;
         if (this.isTouching == true) {
             this.magicCnt += 1;
@@ -305,34 +258,28 @@ var GameLayer = cc.Layer.extend({
             if (this.trasitionCnt > 1 && this.trasitionCnt <= 10) {
                 this.trasitionOpacity += 0.1;
                 if (this.trasitionDirection == "left") {
-                    //this.mapDisplayScale = 1;
                     this.trasitionX += 20;
                     this.mapDisplayNode.setPosition(
                         this.mapDisplayNode.getPosition().x + this.trasitionX,
                         this.mapDisplayNode.getPosition().y
                     );
                     this.mapDisplayScale += 0.3;
-                    //this.mapDisplayScale = 1;
                     this.mapDisplayNode.setScale(this.mapDisplayScale, this.mapDisplayScale);
                     var posX = -316 * this.mapDisplayScale + 316 + this.trasitionX * this.mapDisplayScale * 6;
                     var posY = -271 * this.mapDisplayScale + 271;
                     this.mapDisplayNode.setPosition(posX, posY);
-                    //this.mapDisplayNode.setOpacity(this.trasitionCnt / 20 * 255);
                 }
                 if (this.trasitionDirection == "right") {
-                    //this.mapDisplayScale = 1;
                     this.trasitionX -= 20;
                     this.mapDisplayNode.setPosition(
                         this.mapDisplayNode.getPosition().x + this.trasitionX,
                         this.mapDisplayNode.getPosition().y
                     );
                     this.mapDisplayScale += 0.3;
-                    //this.mapDisplayScale = 1;
                     this.mapDisplayNode.setScale(this.mapDisplayScale, this.mapDisplayScale);
                     var posX = -316 * this.mapDisplayScale + 316 + this.trasitionX * this.mapDisplayScale * 6;
                     var posY = -271 * this.mapDisplayScale + 271;
                     this.mapDisplayNode.setPosition(posX, posY);
-                    //this.mapDisplayNode.setOpacity(this.trasitionCnt / 20 * 255);
                 }
                 if (this.trasitionDirection == "center") {
                     this.trasitionX = 0;
@@ -366,8 +313,6 @@ var GameLayer = cc.Layer.extend({
                 this._refreshWindow();
             }
         }
-        //ラベルの更新
-        //this.powerCnt.setString(this.magicCnt);
 
         //敵との衝突判定
         var _isEnemyCnt = 0;
@@ -402,19 +347,6 @@ var GameLayer = cc.Layer.extend({
                     if (this.player.hp <= 50) {
                         _rand = getRandNumberFromRange(1, 8);
                     }
-                    /*
-                    //_rand = 3;
-                    if (_rand == 2) {
-                        this.calledFriendCnt = 1;
-                    } else if (_rand == 3) {
-                        this.calledFriendCnt = 2;
-                    } else {
-                        this.calledFriendCnt = 0;
-                    }
-                    if (CONFIG.DEBUG_FLAG == 1) {
-                        this.calledFriendCnt = 2;
-                    }
-                    */
                     if (this.isBossFloor == 1) {
                         playBattleBGM002(this.storage);
                     } else {
@@ -659,12 +591,16 @@ var GameLayer = cc.Layer.extend({
         //プレイヤーのダメージがONになっている場合は画面を揺らす
         if (this.player.isDamageOn == true) {
             this.windowPosY += 15;
-            if (this.windowPosY >= 55) {
+            if (this.windowPosY >= 50) {
                 this.windowPosY = 0;
             }
             this.windowNode.setPosition(
-                0, 400 + this.windowPosY
+                0, 440 + this.windowPosY
             );
+        }else{
+            this.windowNode.setPosition(
+                0, 440
+            ); 
         }
     },
 
@@ -673,6 +609,8 @@ var GameLayer = cc.Layer.extend({
         if (this.player.update() == false && this.cutIn.isVisible() == false) {
             this.cutIn.setCutInPlayerDead("死亡した...「魂」を " + Math.ceil(this.storage.tmpSoulsAmount) + " 落としてしまった..");
             this.storage.saveLastDeadPlayerStatus(this);
+            this.player.hp = 0;
+            this.miniMap.miniMapNode.setVisible(true);
             playBGM002(this.storage);
         };
 
@@ -689,13 +627,21 @@ var GameLayer = cc.Layer.extend({
         }
 
         if (this.player.targetEnemy != null) {
-            this.miniMap.miniMapNode.setVisible(false);
+            if(this.player.hp >= 0){
+                this.miniMap.miniMapNode.setVisible(false);
+            }else{
+                this.miniMap.miniMapNode.setVisible(true);
+            }
             this.battleConsole.setVisible(true);
             this.leftHand3Sprite.setVisible(true);
             this.rightHand3Sprite.setVisible(true);
             this.moveConsole.setVisible(false);
         } else {
-            this.miniMap.miniMapNode.setVisible(true);
+            if(this.player.hp >= 0){
+                this.miniMap.miniMapNode.setVisible(true);
+            }else{
+                this.miniMap.miniMapNode.setVisible(true);
+            }
             this.battleConsole.setVisible(false);
             this.leftHand3Sprite.setVisible(false);
             this.rightHand3Sprite.setVisible(false);
@@ -1012,7 +958,7 @@ var GameLayer = cc.Layer.extend({
         }
 
         //敵の設置
-        var _enemyCount = Math.ceil(_positioningArrayCount / 18);
+        var _enemyCount = Math.ceil(_positioningArrayCount / 15);
         if (this._stageNum % 5 == 1) {
             _enemyCount = Math.ceil(_positioningArrayCount / 25);
         }
@@ -1023,7 +969,7 @@ var GameLayer = cc.Layer.extend({
             _enemyCount = Math.ceil(_positioningArrayCount / 18);
         }
         if (this._stageNum % 5 == 4) {
-            _enemyCount = Math.ceil(_positioningArrayCount / 14);
+            _enemyCount = Math.ceil(_positioningArrayCount / 15);
         }
         //ボスの時は1体
         if (this.isBossFloor == 1) {

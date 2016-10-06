@@ -13,7 +13,7 @@ var QuestLayer = cc.Layer.extend({
             this.storage.maxUnlockedStage = 1;
         }
         this.maxClearedFloor = this.storage.maxUnlockedStage;
-        //this.maxClearedFloor = 10;
+this.maxClearedFloor = 10;
         if (this.storage.lastFloorNum > 0) {
             this.floorNumber = this.storage.lastFloorNum;
         } else {
@@ -63,27 +63,22 @@ var QuestLayer = cc.Layer.extend({
         //タワーの図をセット
         this.tower001Sprite = cc.Sprite.create("res/tower_map_001.png");
         this.tower001Sprite.setPosition(320, 720);
-        //¥this.tower001Sprite.setScale(1.5, 1.5);
         this.addChild(this.tower001Sprite);
 
         this.tower002Sprite = cc.Sprite.create("res/tower_map_002.png");
         this.tower002Sprite.setPosition(320, 720);
-        //this.tower002Sprite.setScale(1.5, 1.5);
         this.addChild(this.tower002Sprite);
 
         this.tower003Sprite = cc.Sprite.create("res/tower_map_003.png");
         this.tower003Sprite.setPosition(320, 720);
-        //this.tower003Sprite.setScale(1.5, 1.5);
         this.addChild(this.tower003Sprite);
 
         this.tower004Sprite = cc.Sprite.create("res/tower_map_004.png");
         this.tower004Sprite.setPosition(320, 720);
-        //this.tower004Sprite.setScale(1.5, 1.5);
         this.addChild(this.tower004Sprite);
 
         this.tower005Sprite = cc.Sprite.create("res/tower_map_005.png");
         this.tower005Sprite.setPosition(320, 720);
-        //this.tower005Sprite.setScale(1.5, 1.5);
         this.addChild(this.tower005Sprite);
 
         //キャラクターをセット
@@ -105,23 +100,23 @@ var QuestLayer = cc.Layer.extend({
 
         this.cutIn2 = new CutIn2(this);
         this.addChild(this.cutIn2, 999);
-        
-                if (this.maxClearedFloor == 1) {
-                    this.messages = CONFIG.GUIDE_MESSAGE_001;
-                }
-                if (this.maxClearedFloor == 2) {
-                    this.messages = CONFIG.GUIDE_MESSAGE_002;
-                }
-                if (this.maxClearedFloor == 3) {
-                    this.messages = CONFIG.GUIDE_MESSAGE_003;
-                }
-                if (this.maxClearedFloor == 4) {
-                    this.messages = CONFIG.GUIDE_MESSAGE_004;
-                }
-                if (this.maxClearedFloor == 5) {
-                    this.messages = CONFIG.GUIDE_MESSAGE_005;
-                }
-        
+
+        if (this.maxClearedFloor == 1) {
+            this.messages = CONFIG.GUIDE_MESSAGE_001;
+        }
+        if (this.maxClearedFloor == 2) {
+            this.messages = CONFIG.GUIDE_MESSAGE_002;
+        }
+        if (this.maxClearedFloor == 3) {
+            this.messages = CONFIG.GUIDE_MESSAGE_003;
+        }
+        if (this.maxClearedFloor == 4) {
+            this.messages = CONFIG.GUIDE_MESSAGE_004;
+        }
+        if (this.maxClearedFloor == 5) {
+            this.messages = CONFIG.GUIDE_MESSAGE_005;
+        }
+
         this.isSendedMsg = false;
         this.tmpY = this.charactorSprite.getPosition().y;
         this.moveDirection = "up";
@@ -175,9 +170,7 @@ var QuestLayer = cc.Layer.extend({
     },
 
     sendGameCenter: function() {
-        //maxClearedFloor
         var floorData = this.storage.getStageNumber(this.maxClearedFloor);
-        //this.header.stageLabel.setString(floorData['visibleNum']);
         var floorNum = floorData['floorNum'];
         sdkbox.PluginSdkboxPlay.submitScore("max_floor", floorNum);
 
@@ -253,17 +246,7 @@ var QuestLayer = cc.Layer.extend({
             }, this);
         this.item004Button.setAnchorPoint(0, 0);
         this.item004Button.setPosition(300, 90);
-        /*
-                this.item005Button = new cc.MenuItemFont("魔法装備の変更", this.onTouchMsg005, this);
-                this.item005Button.fontSize = 22;
-                this.item005Button.setAnchorPoint(0, 0);
-                this.item005Button.setPosition(0, 0);
 
-                this.item006Button = new cc.MenuItemFont("武器の変更", this.onTouchMsg006, this);
-                this.item006Button.fontSize = 22;
-                this.item006Button.setAnchorPoint(0, 0);
-                this.item006Button.setPosition(0, 0);
-        */
         var menu1 = new cc.Menu(
             this.item001Button,
             this.item002Button,
@@ -608,10 +591,6 @@ var QuestLayer = cc.Layer.extend({
     },
 
     update: function(dt) {
-
-        //this.header.hpLabel.setString(this.player.hp + "/" + this.player.maxHp);
-        //this.header.mpLabel.setString(this.player.mp + "/" + this.player.maxMp);
-
         var floorData = this.storage.getStageNumber(this.floorNumber);
         this.header.stageLabel.setString(floorData['visibleNum']);
 
