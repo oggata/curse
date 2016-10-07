@@ -65,6 +65,7 @@ var GameLayer = cc.Layer.extend({
 
         this.miniMap = new miniMap(this);
         this.addChild(this.miniMap, 99999999);
+        this.miniMap.setZoom(true);
 
         //cutinを作成する
         this.cutIn = new CutIn(this);
@@ -610,7 +611,6 @@ var GameLayer = cc.Layer.extend({
             this.cutIn.setCutInPlayerDead("死亡した...「魂」を " + Math.ceil(this.storage.tmpSoulsAmount) + " 落としてしまった..");
             this.storage.saveLastDeadPlayerStatus(this);
             this.player.hp = 0;
-            this.miniMap.miniMapNode.setVisible(true);
             playBGM002(this.storage);
         };
 
@@ -627,9 +627,11 @@ var GameLayer = cc.Layer.extend({
         }
 
         if (this.player.targetEnemy != null) {
-            if(this.player.hp >= 0){
+            //戦闘中
+            if(this.player.hp > 0){
                 this.miniMap.miniMapNode.setVisible(false);
             }else{
+                this.miniMap.isZoom = true;
                 this.miniMap.miniMapNode.setVisible(true);
             }
             this.battleConsole.setVisible(true);
@@ -637,11 +639,8 @@ var GameLayer = cc.Layer.extend({
             this.rightHand3Sprite.setVisible(true);
             this.moveConsole.setVisible(false);
         } else {
-            if(this.player.hp >= 0){
-                this.miniMap.miniMapNode.setVisible(true);
-            }else{
-                this.miniMap.miniMapNode.setVisible(true);
-            }
+            //歩行中
+            this.miniMap.miniMapNode.setVisible(true);
             this.battleConsole.setVisible(false);
             this.leftHand3Sprite.setVisible(false);
             this.rightHand3Sprite.setVisible(false);
@@ -894,6 +893,13 @@ var GameLayer = cc.Layer.extend({
                     }
                 }
             }
+
+        //boss面の場合は、スタートとゴールは決め打ち
+        if(this.isBossFloor){
+            _startPos = 673;
+            _finishPos = 193;
+        }
+
         for (var f = 0; f < this.setPositions.length; f++) {
             if (this.setPositions[f] == _startPos) {
                 this.setPositions.splice(f, 1);

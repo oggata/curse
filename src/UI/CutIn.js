@@ -117,6 +117,7 @@ var CutIn = cc.Node.extend({
         this.cutInText = "";
         cc.log("onTouchOkButton");
         this.setVisible(false);
+        this.game.miniMap.setZoom(false);
     },
 
     onTouchHelpHuman: function(sender) {

@@ -3,10 +3,12 @@ var miniMap = cc.Node.extend({
         this._super();
         this.game = game;
 
+        this.isZoom = true;
+
         this.miniMapNode = cc.Node.create();
         this.addChild(this.miniMapNode, 99999999);
         this.miniMapNode.setAnchorPoint(0.5, 0.5);
-        this.miniMapNode.setPosition(0, 980);
+        this.miniMapNode.setPosition(0, 960);
         this.miniMapNode.setScale(0.4, 0.4);
         //this.miniMapNode.setScale(1, 1);
         this.miniMapNode.setOpacity(255 * 0.5);
@@ -138,6 +140,20 @@ var miniMap = cc.Node.extend({
         this.miniMapPlayer4.setAnchorPoint(0, 0);
         this.miniMapPlayer4.setPosition(0, 0);
         this.miniMapNode.addChild(this.miniMapPlayer4, 10);
+    },
+
+    setZoom:function(isZoom){
+        this.isZoom = isZoom;
+    },
+
+    setZoomMap:function(){
+        if(this.isZoom){
+            this.miniMapNode.setPosition(75, 920);
+            this.miniMapNode.setScale(0.8, 0.8);
+        }else{
+            this.miniMapNode.setPosition(0, 960);
+            this.miniMapNode.setScale(0.4, 0.4);
+        }
     },
 
     findByTargetPosNum:function(targetPosNum){
@@ -358,6 +374,8 @@ var miniMap = cc.Node.extend({
     },
 
     update: function() {
+        this.setZoomMap();
+
         var _pCol = ((this.game.player.posNum + 9) % 9);
         if (_pCol == 0) {
             _pCol = 9;
