@@ -16,6 +16,7 @@ var miniMap = cc.Node.extend({
         this.wallChips = [];
         this.enemyChips = [];
         this.itemChips = [];
+        this.doorChips = [];
         this.hiddenChips = [];
         this.playerPassedMapIds = [];
 
@@ -70,6 +71,15 @@ var miniMap = cc.Node.extend({
             this.miniMapNode.addChild(this.mini_item_chip, 2);
             this.mini_item_chip.setOpacity(255*0.7);
             this.itemChips.push(this.mini_item_chip);
+
+            this.mini_door_chip = cc.Sprite.create(
+                "res/icon_door.png"
+            );
+            this.mini_door_chip.setAnchorPoint(0, 0);
+            this.mini_door_chip.setPosition(_col * 55 * 1, _row * 55 * -1);
+            this.miniMapNode.addChild(this.mini_door_chip, 2);
+            this.mini_door_chip.setOpacity(255*0.7);
+            this.doorChips.push(this.mini_door_chip);
 
 /*
             var frameSeq = [];
@@ -251,6 +261,19 @@ var miniMap = cc.Node.extend({
                 }
             }
         }
+
+        //Wall
+        for (var i = 0; i < this.isRadarVisibleMapIds.length; i++) {
+            this.doorChips[i].setVisible(false);
+        }
+        for (var i = 0; i < this.isRadarVisibleMapIds.length; i++) {
+            if (this.game.MAP_POSITIONS[this.isRadarVisibleMapIds[i]]) {
+                if (this.game.MAP_POSITIONS[this.isRadarVisibleMapIds[i]] == 2) {
+                    this.doorChips[i].setVisible(true);
+                }
+            }
+        }
+
 
         //Enemy
         for (var i = 0; i < this.isRadarVisibleMapIds.length; i++) {

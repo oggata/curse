@@ -363,9 +363,11 @@ var battleConsole = cc.Node.extend({
         this.isCritical = false;
 
         if(this.isMaxSpCnt >= 1){
-            this.game.spLabel.setString("SPx" + this.isMaxSpCnt + "");
+            this.game.criticalSprite.setVisible(true);
+            //this.game.spLabel.setString("SPx" + this.isMaxSpCnt + "");
         }else{
-            this.game.spLabel.setString("");
+            //this.game.spLabel.setString("");
+            this.game.criticalSprite.setVisible(false);
         }
 
         for (var i = 0; i < this.cards.length; i++) {

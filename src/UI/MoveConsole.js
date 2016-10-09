@@ -55,24 +55,14 @@ var moveConsole = cc.Node.extend({
                     this.game.trasitionDirection = "center";
                     this.game.player.spendActionCost();
                     //this.wCount = 0;
+
+                    if(this.game.checkIsDoorPositions(this.game.player.posNum) == true){
+                        playSE009(this.game.storage);
+                    }
                 }
             }, this);
         this.walkButton.setPosition(320, 0);
-/*
-        this.homeButton = new cc.MenuItemImage(
-            "res/button_move_center.png",
-            "res/button_move_center_on.png",
-            function() {
-                if (this.game.isSetMenuWindow()) return;
-                if (this.game.player.targetEnemy == null) {
-                    playSE003(this.game.storage);
-                    this.game.storage.forceReturnStageNum = 0;
-                    this.game.storage.saveCurrentData();
-                    this.game.goToQuesetSelect();
-                }
-            }, this);
-        this.homeButton.setPosition(320, -150);
-*/
+
         var menu = new cc.Menu(this.leftButton, this.rightButton, this.walkButton);
         menu.x = 0;
         menu.y = 300;
@@ -80,14 +70,5 @@ var moveConsole = cc.Node.extend({
     },
 
     update: function() {
-        /*
-        this.wCount+=2;
-        if(this.wCount >= 60){
-            this.wCount = 60;
-        }
-        this.leftGauge.update(this.wCount/60);
-        this.rightGauge.update(this.wCount/60);
-        this.walkGauge.update(this.wCount/60);
-        */
     },
 });

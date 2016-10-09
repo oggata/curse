@@ -13,7 +13,6 @@ var QuestLayer = cc.Layer.extend({
             this.storage.maxUnlockedStage = 1;
         }
         this.maxClearedFloor = this.storage.maxUnlockedStage;
-this.maxClearedFloor = 10;
         if (this.storage.lastFloorNum > 0) {
             this.floorNumber = this.storage.lastFloorNum;
         } else {
@@ -293,7 +292,7 @@ this.maxClearedFloor = 10;
         this.nextFloorLable = cc.LabelTTF.create(this.soulText, "Arial", CONFIG.CUTIN_FONT_SIZE);
         this.nextFloorLable.setFontFillColor(new cc.Color(255, 255, 255, 255));
         this.nextFloorLable.setAnchorPoint(0, 0);
-        this.nextFloorLable.setPosition(40, 30);
+        this.nextFloorLable.setPosition(60, 30);
         this.item201Button.addChild(this.nextFloorLable);
 
         this.item202Button = new cc.MenuItemImage(
@@ -663,7 +662,7 @@ this.maxClearedFloor = 10;
         this.header.mpGauge.update(this.storage.lastPlayerMp / 100);
         var _vFloorNum = ("000" + this.floorNumber).slice(-3);
         var floorData = this.storage.getStageNumber(this.floorNumber);
-        this.nextFloorLable.setString(floorData['visibleNum'] + "から出発する");
+        this.nextFloorLable.setString("START " + floorData['visibleNum'] + "F");
     },
 
     _distanceBetweenPositions: function(p1, p2) {

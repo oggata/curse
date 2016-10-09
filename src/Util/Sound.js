@@ -25,8 +25,15 @@ var playBGM003 = function(storage){
     }
 };
 
-//game_maoudamashii_2_boss01.mp3
-//bgm_maoudamashii_piano21.mp3
+var playBGM004 = function(storage){
+    if(storage.bgmVolume != 0)
+    {
+        var audioEngine = cc.audioEngine;
+        audioEngine.stopMusic();
+        audioEngine.playMusic("res/se_maoudamashii_jingle01.mp3",false); //BGM
+    }
+};
+
 var playBattleBGM = function(storage){
     if(storage.bgmVolume != 0)
     {
@@ -105,10 +112,17 @@ var playSE008 = function(storage){
     if(storage.seVolume != 0)
     {
         var audioEngine = cc.audioEngine;
-        audioEngine.playEffect("res/se_maoudamashii_se_switch02.mp3",false);
+        audioEngine.playEffect("res/se_maoudamashii_retro14.mp3",false);
     }
 };
 
+var playSE009 = function(storage){
+    if(storage.seVolume != 0)
+    {
+        var audioEngine = cc.audioEngine;
+        audioEngine.playEffect("res/se_maoudamashii_se_door02.mp3",false);
+    }
+};
 
 //se_maoudamashii_retro02.mp3
 //se_maoudamashii_magical30.mp3

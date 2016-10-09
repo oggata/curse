@@ -254,6 +254,57 @@ var mapDisplayNode = cc.Node.extend({
         this.mapObjectF3Sprite.setPosition(40, 40);
         this.mapObjectF3Sprite.setVisible(false);
         this.addChild(this.mapObjectF3Sprite);
+
+
+        frameSeq = [];
+        for (var i = 0; i < 5; i++) {
+            var frame = cc.SpriteFrame.create("res/basetype2_door.png", cc.rect(0, 480 * i, 555, 480));
+            frameSeq.push(frame);
+        }
+        this.wa = cc.Animation.create(frameSeq, 0.07);
+        this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
+        this.mapObjectD3Sprite = cc.Sprite.create("res/basetype2_door.png", cc.rect(0, 0, 555, 480));
+        this.mapObjectD3Sprite.runAction(this.ra);
+
+        this.mapObjectD3Sprite.setAnchorPoint(0, 0);
+        this.mapObjectD3Sprite.setPosition(40, 40);
+        this.mapObjectD3Sprite.setVisible(false);
+        this.addChild(this.mapObjectD3Sprite);
+/*
+        //door
+        this.mapObjectD3Sprite = cc.Sprite.create("res/door_3.png", cc.rect(0, 0, 660, 480));
+        //this.mapObjectD3Sprite.runAction(this.ra);
+        //this.mapObjectD3Sprite.setAnchorPoint(0,0);
+        this.mapObjectD3Sprite.setPosition(320,200);
+        this.mapObjectD3Sprite.setVisible(false);
+        this.addChild(this.mapObjectD3Sprite);
+*/
+
+
+        frameSeq = [];
+        for (var i = 0; i < 5; i++) {
+            var frame = cc.SpriteFrame.create("res/basetype2_door.png", cc.rect(0, 480 * i, 555, 480));
+            frameSeq.push(frame);
+        }
+        this.wa = cc.Animation.create(frameSeq, 0.12);
+        this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
+        this.mapObjectD2Sprite = cc.Sprite.create("res/basetype2_door.png", cc.rect(0, 0, 555, 480));
+        this.mapObjectD2Sprite.runAction(this.ra);
+
+        this.mapObjectD2Sprite.setScale(0.64);
+        this.mapObjectD2Sprite.setAnchorPoint(0, 0);
+        this.mapObjectD2Sprite.setPosition(135, 120);
+        this.mapObjectD2Sprite.setVisible(false);
+        this.addChild(this.mapObjectD2Sprite);
+/*
+        this.mapObjectD2Sprite = cc.Sprite.create("res/png.png", cc.rect(0, 0, 660, 480));
+        //this.mapObjectD3Sprite.runAction(this.ra);
+        //this.mapObjectD2Sprite.setAnchorPoint(0,0);
+        this.mapObjectD2Sprite.setPosition(320,200);
+        this.mapObjectD2Sprite.setVisible(false);
+        this.addChild(this.mapObjectD2Sprite);
+*/
+
     },
 
     setDisplay: function(tpos) {
@@ -300,6 +351,12 @@ var mapDisplayNode = cc.Node.extend({
             this.mapObjectC2Sprite.setVisible(false);
         }
 
+        if (this.c2 == 2) {
+            this.mapObjectD2Sprite.setVisible(true);
+        } else {
+            this.mapObjectD2Sprite.setVisible(false);
+        }
+
         if (this.r2 == 1) {
             this.mapObjectR2Sprite.setVisible(true);
         } else {
@@ -316,6 +373,12 @@ var mapDisplayNode = cc.Node.extend({
             this.mapObjectC3Sprite.setVisible(true);
         } else {
             this.mapObjectC3Sprite.setVisible(false);
+        }
+
+        if (this.c3 == 2) {
+            this.mapObjectD3Sprite.setVisible(true);
+        } else {
+            this.mapObjectD3Sprite.setVisible(false);
         }
 
         if (this.r3 == 1) {

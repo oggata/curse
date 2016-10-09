@@ -17,6 +17,9 @@ var GameLayer = cc.Layer.extend({
         this.damages = [];
         this.damageEffecs = [];
 
+        this.setPositions = [];
+        this.doorPositions = [];
+
         this._stageNum = stageNum;
         this.tpos = [];
         this.MAP_DATA = CONFIG.STAGE_LIST['stages'][1]['maps'][stageNum];
@@ -112,6 +115,10 @@ var GameLayer = cc.Layer.extend({
         if (this.MAP_POSITIONS[this.chkPosNum] != 1) {
             this.player.directionNum = 4;
         }
+        //boss面の場合は、スタートとゴールは決め打ち
+        if(this.isBossFloor || this._stageNum == 1){
+            this.player.directionNum = 1;
+        }
 
         //ボタン、コントローラーを作成する
         this._setButtons();
@@ -157,7 +164,6 @@ var GameLayer = cc.Layer.extend({
         this.isMovedQuestPage = false;
 
         this.battleTime = 0;
-        //this.calledFriendCnt = 0;
         this.friends = [];
 
         //storageにsave
@@ -173,7 +179,7 @@ var GameLayer = cc.Layer.extend({
         this.comboSprite.retain();
         this.comboSprite.setAnchorPoint(0, 0);
         this.comboSprite.setPosition(250, 500);
-        this.windowObjectDisplayNode.addChild(this.comboSprite, 9999);
+        //this.windowObjectDisplayNode.addChild(this.comboSprite, 9999);
         this.comboSprite.setVisible(false);
 
         this.comboLabel = cc.LabelTTF.create("2", "Arial", 32);
@@ -190,9 +196,13 @@ var GameLayer = cc.Layer.extend({
         this.windowObjectDisplayNode.addChild(this.spSprite, 9999);
         this.spSprite.setVisible(false);
 
-        this.spLabel = cc.LabelTTF.create("xxxxx", "Arial", 50);
-        this.spLabel.setPosition(460, 440);
-        this.windowObjectDisplayNode.addChild(this.spLabel,9999);
+        this.criticalSprite = cc.Sprite.create("res/card012.png");
+        this.criticalSprite.retain();
+        this.criticalSprite.setScale(0.4,0.4);
+        this.criticalSprite.setAnchorPoint(0, 0);
+        this.criticalSprite.setPosition(560, 440);
+        this.windowObjectDisplayNode.addChild(this.criticalSprite, 9999);
+        this.criticalSprite.setVisible(false);
 
         this.battleConsolePos = 0;
         this.battleConsoleDirection = "up";
@@ -224,7 +234,7 @@ var GameLayer = cc.Layer.extend({
 
         if (this.isGameClearCount >= 1) {
             this.isGameClearCount++;
-            if (this.isGameClearCount >= 30 * 5 && this.isMovedQuestPage == false) {
+            if (this.isGameClearCount >= 30 * 7 && this.isMovedQuestPage == false) {
                 this.isMovedQuestPage = true;
                 this.goQuestFloor();
             }
@@ -565,6 +575,13 @@ var GameLayer = cc.Layer.extend({
         return false;
     },
 
+    checkIsDoorPositions: function(posNum) {
+        if (this.doorPositions.indexOf(posNum) >= 0) {
+            return true;
+        }
+        return false;
+    },
+
     getBockedPositionByEnemy: function(inputEnemy) {
         this.blockedPositions = [];
         for (var i = 0; i < this.enemies.length; i++) {
@@ -611,7 +628,8 @@ var GameLayer = cc.Layer.extend({
             this.cutIn.setCutInPlayerDead("死亡した...「魂」を " + Math.ceil(this.storage.tmpSoulsAmount) + " 落としてしまった..");
             this.storage.saveLastDeadPlayerStatus(this);
             this.player.hp = 0;
-            playBGM002(this.storage);
+            //playBGM002(this.storage);
+            playBGM004(this.storage);
         };
 
         //スタート地点に戻った時
@@ -701,6 +719,7 @@ var GameLayer = cc.Layer.extend({
             _text += ".....塔の外に転送しています.....\n";
             this.addPlayerEscapeEffect();
             this.cutIn.setCutInText(_text);
+            playBGM004(this.storage);
         }
     },
 
@@ -851,14 +870,21 @@ var GameLayer = cc.Layer.extend({
     _setObjectRandam: function() {
         //まず配置可能な場所をsetPositionsという配列にする
         this.setPositions = [];
+        this.doorPositions = [];
         for (var i = 1; i < this.MAP_POSITIONS.length; i++) {
             var _col = ((i + 30) % 30);
             if (_col == 0) {
                 _col = 30;
             }
             var _row = Math.floor((i - 1) / 30) + 1;
+            //0の場所のみが通れる場所
             if (this.MAP_POSITIONS[i] == 0) {
                 this.setPositions.push(i);
+            }
+
+            //ドアの場合は、配列に入れる
+            if (this.MAP_POSITIONS[i] == 2) {
+                this.doorPositions.push(i);
             }
         }
 
@@ -895,9 +921,10 @@ var GameLayer = cc.Layer.extend({
             }
 
         //boss面の場合は、スタートとゴールは決め打ち
-        if(this.isBossFloor){
+        if(this.isBossFloor || this._stageNum == 1){
             _startPos = 673;
             _finishPos = 193;
+            //this.player.directionNum = 1;
         }
 
         for (var f = 0; f < this.setPositions.length; f++) {

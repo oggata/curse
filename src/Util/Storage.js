@@ -137,36 +137,6 @@ var Storage = cc.Class.extend({
         return 0;
     },
 
-    /*
-        通常
-            [x]lastFloorNum 
-            [x]lastMapId
-            [x]lastStartPos
-            [x]lastFinishPos
-            [x]lastPlayerPosNum
-            [x]lastDroppedSoulPos
-            [x]droppedSoulsAmount
-            
-            [x]lastPlayerHp
-            [x]lastPlayerMp
-            
-            [x]lastUpdatedTime
-        途中切断
-        死亡
-        クリア
-    */
-
-    /*
-    cc.log("called saveLastAlivePlayerStatus");
-    cc.log("lastDroppedSoulPos" + this.lastDroppedSoulPos);
-    cc.log("lastStartPos" + this.lastStartPos);
-    cc.log("lastFinishPos" + this.lastFinishPos);
-    cc.log("lastFloorNum" + this.lastFloorNum);
-    cc.log("lastMapId" + this.lastMapId);
-    cc.log("lastPlayerHp" + this.lastPlayerHp);
-    cc.log("lastPlayerMp" + this.lastPlayerMp);
-    */
-
     saveLastPositions : function(game,isDropped){
         this.lastFloorNum = game._stageNum;
         this.lastMapId = game.mapId;
@@ -188,8 +158,6 @@ var Storage = cc.Class.extend({
             this.droppedSoulsAmount = _souls;
         }else{
             //通常時は何もしない
-            //this.lastDroppedSoulPos = 0;
-            //this.droppedSoulsAmount = 0;
             this.lastPlayerHp = game.player.hp;
             this.lastPlayerMp = game.player.mp;
         }
@@ -368,15 +336,15 @@ var Storage = cc.Class.extend({
     },
 
     getRewordAmountByLebel: function(level) {
-        return Math.ceil((60 + (60 * 0.1) * ((((level / 100) + 1) * 2) * level) * (level / 100) + 1) + level * level) * 1;
+        return Math.ceil((60 + (60 * 0.1) * ((((level / 100) + 1) * 2) * level) * (level / 100) + 1) + level * level) * 2;
     },
 
     getBossRewordAmountByLebel: function(level) {
-        return Math.ceil((60 + (60 * 0.1) * ((((level / 100) + 1) * 2) * level) * (level / 100) + 1) + level * level) * 1.7;
+        return Math.ceil((60 + (60 * 0.1) * ((((level / 100) + 1) * 2) * level) * (level / 100) + 1) + level * level) * 3;
     },
 
     getStageClearRewordAmountByLebel: function(level) {
-        return Math.ceil((60 + (60 * 0.1) * ((((level / 100) + 1) * 2) * level) * (level / 100) + 1) + level * level) * 0.8;
+        return Math.ceil((60 + (60 * 0.1) * ((((level / 100) + 1) * 2) * level) * (level / 100) + 1) + level * level) * 1.5;
     },
 
     getEnemyActionCost: function(enemyLevel) {

@@ -7,7 +7,6 @@ var Enemy = cc.Node.extend({
 
         //initialize
         this.level = enemyLevel;
-this.level = 18;
         this.isBoss = isBoss;
         this.initializeParam(enemyLevel);
         this.initSprite();

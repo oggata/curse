@@ -64,7 +64,8 @@ var TopLayer = cc.Layer.extend({
             }, this);
         scoreButton.setPosition(320, 200);
 
-        var menu = new cc.Menu(gameButton, scoreButton);
+        //var menu = new cc.Menu(gameButton, scoreButton);
+        var menu = new cc.Menu(gameButton);
         menu.x = 0;
         menu.y = 0;
         this.addChild(menu, 1);

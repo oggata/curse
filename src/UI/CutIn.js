@@ -440,7 +440,7 @@ var CutIn2 = cc.Node.extend({
             } else {
                 //textを表示している途中
                 this.seTime++;
-                if (this.seTime >= 15) {
+                if (this.seTime >= 22) {
                     this.seTime = 0;
                     playSE008(this.questLayer.storage);
                 }
