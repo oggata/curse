@@ -55,7 +55,6 @@ var moveConsole = cc.Node.extend({
                     this.game.trasitionDirection = "center";
                     this.game.player.spendActionCost();
                     //this.wCount = 0;
-
                     if(this.game.checkIsDoorPositions(this.game.player.posNum) == true){
                         playSE009(this.game.storage);
                     }

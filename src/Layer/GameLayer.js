@@ -173,7 +173,7 @@ var GameLayer = cc.Layer.extend({
 
         this.mapDisplayScale2 = 1;
         this.mapDisplayScaleDirection = "up";
-
+/*
         //combo
         this.comboSprite = cc.Sprite.create("res/combo.png");
         this.comboSprite.retain();
@@ -195,7 +195,7 @@ var GameLayer = cc.Layer.extend({
         this.spSprite.setPosition(250, 500);
         this.windowObjectDisplayNode.addChild(this.spSprite, 9999);
         this.spSprite.setVisible(false);
-
+*/
         this.criticalSprite = cc.Sprite.create("res/card012.png");
         this.criticalSprite.retain();
         this.criticalSprite.setScale(0.4,0.4);
@@ -432,7 +432,7 @@ var GameLayer = cc.Layer.extend({
         if (this.isBossFloor == 1) {
             _mapId = 1;
         } else {
-            _mapId = getRandNumberFromRange(3, 9);
+            _mapId = getRandNumberFromRange(3, 10);
             if (this.storage.isSavedLastPosition(this._stageNum) == true) {
                 _mapId = this.storage.lastMapId;
             }
@@ -570,6 +570,9 @@ var GameLayer = cc.Layer.extend({
     checkBlockedPositions: function(posNum) {
         this.getBockedPositions();
         if (this.blockedPositions.indexOf(posNum) >= 0) {
+            return true;
+        }
+        if (this.doorPositions.indexOf(posNum) >= 0) {
             return true;
         }
         return false;
@@ -946,7 +949,7 @@ var GameLayer = cc.Layer.extend({
         }
 
         //アイテムの設置
-        var _itemCount = Math.ceil(_positioningArrayCount / 10);
+        var _itemCount = Math.ceil(_positioningArrayCount / 20);
         if (this._stageNum == 1) {
             _itemCount = 0;
         }
@@ -954,9 +957,8 @@ var GameLayer = cc.Layer.extend({
             _itemCount = 0;
         }
         if (this._stageNum == 3) {
-            _itemCount = 10;
+            _itemCount = 5;
         }
-
         //ボス面はアイテム不要
         if (this.isBossFloor == 1) {
             _itemCount = 0;
@@ -991,18 +993,18 @@ var GameLayer = cc.Layer.extend({
         }
 
         //敵の設置
-        var _enemyCount = Math.ceil(_positioningArrayCount / 15);
+        var _enemyCount = Math.ceil(_positioningArrayCount / 17);
         if (this._stageNum % 5 == 1) {
             _enemyCount = Math.ceil(_positioningArrayCount / 25);
         }
         if (this._stageNum % 5 == 2) {
-            _enemyCount = Math.ceil(_positioningArrayCount / 22);
+            _enemyCount = Math.ceil(_positioningArrayCount / 23);
         }
         if (this._stageNum % 5 == 3) {
-            _enemyCount = Math.ceil(_positioningArrayCount / 18);
+            _enemyCount = Math.ceil(_positioningArrayCount / 20);
         }
         if (this._stageNum % 5 == 4) {
-            _enemyCount = Math.ceil(_positioningArrayCount / 15);
+            _enemyCount = Math.ceil(_positioningArrayCount / 17);
         }
         //ボスの時は1体
         if (this.isBossFloor == 1) {

@@ -118,16 +118,15 @@ var Player = cc.Node.extend({
         if(this.targetEnemy){
             if(this.targetEnemy.isDamageOn == true){
                 if(this.comboCnt <= 1){
-                    this.game.comboSprite.setVisible(false);
+                    //this.game.comboSprite.setVisible(false);
                 }else{
-                    this.game.comboLabel.setString(this.comboCnt);
-                    this.game.comboSprite.setVisible(true);
+                    //this.game.comboSprite.setVisible(true);
                 }
             }else{
-                this.game.comboSprite.setVisible(false);
+                //this.game.comboSprite.setVisible(false);
             } 
         }else{
-            this.game.comboSprite.setVisible(false);
+            //this.game.comboSprite.setVisible(false);
         }
 
         if (this.hp <= 0) {

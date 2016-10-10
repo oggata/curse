@@ -328,6 +328,8 @@ var Enemy = cc.Node.extend({
     setDistanceBetweenPlayer: function(distanceNum) {
         if (this.game.mapDisplayNode.c3 == 1) {
             this.setVisible(false);
+        } else if(this.game.mapDisplayNode.c3 == 2){
+            this.setVisible(false);
         } else if (distanceNum == 1) {
             this.game.windowObjectDisplayNode.reorderChild(
                 this,

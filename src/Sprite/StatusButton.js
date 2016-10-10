@@ -33,7 +33,6 @@ var StatusButtonSprite = cc.Node.extend({
                 playSESystem(this.storage);
                 this.nextCoinAmount = this.storage.getAmountFromData(this.productId);
                 if (game.storage.tmpSoulsAmount >= this.nextCoinAmount) {
-                    game.storage.tmpSoulsAmount -= this.nextCoinAmount;
                     game.storage.useSouls(this.nextCoinAmount);
                     this.game.storage.saveItemDataToStorage(this.productId, 1);
                     this.addLevel();
@@ -48,21 +47,23 @@ var StatusButtonSprite = cc.Node.extend({
         menuSetting.setPosition(0, 0);
         this.itemButtonSprite.addChild(menuSetting);
 
-        this.levelLabel = cc.LabelTTF.create("lv12", CONFIG.FONT, 24);
+        this.level = this.storage.getLevelFromData(this.productId);
+        this.levelLabel = cc.LabelTTF.create("lv." + this.level, CONFIG.FONT, 24);
         this.levelLabel.setAnchorPoint(1, 0);
         this.levelLabel.setPosition(590, 100);
         this.levelLabel.enableStroke(new cc.Color(0, 0, 0, 255), 2, false);
         this.itemButtonSprite.addChild(this.levelLabel);
 
-        this.amountLabel = cc.LabelTTF.create("x10000", CONFIG.FONT, 24);
+        //this.amountLabel.setString(this.storage.getAmountFromData(this.productId));
+        this.nextCoinAmount = this.storage.getAmountFromData(this.productId);
+        this.amountLabel = cc.LabelTTF.create(this.nextCoinAmount, CONFIG.FONT, 24);
         //this.amountLabel.setFontFillColor(new cc.Color(0, 0, 0, 255));
         this.amountLabel.setAnchorPoint(1, 0);
         this.amountLabel.setPosition(590, 70);
         this.levelLabel.enableStroke(new cc.Color(0, 0, 0, 255), 2, false);
         this.itemButtonSprite.addChild(this.amountLabel);
 
-        //this.amountLabel.setString(this.storage.getAmountFromData(this.productId));
-        this.nextCoinAmount = this.storage.getAmountFromData(this.productId);
+
 
         this.setCardImage();
 

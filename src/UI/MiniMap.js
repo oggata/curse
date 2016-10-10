@@ -158,11 +158,11 @@ var miniMap = cc.Node.extend({
 
     setZoomMap:function(){
         if(this.isZoom){
-            this.miniMapNode.setPosition(75, 920);
-            this.miniMapNode.setScale(0.8, 0.8);
+            //this.miniMapNode.setPosition(75, 920);
+            //this.miniMapNode.setScale(0.8, 0.8);
         }else{
-            this.miniMapNode.setPosition(0, 960);
-            this.miniMapNode.setScale(0.4, 0.4);
+            //this.miniMapNode.setPosition(0, 960);
+            //this.miniMapNode.setScale(0.4, 0.4);
         }
     },
 
