@@ -48,7 +48,7 @@ var TopLayer = cc.Layer.extend({
 
         var gameButton = new cc.MenuItemImage(
             "res/button_start.png",
-            "res/button_start.png",
+            "res/button_start_on.png",
             function() {
                 this.goToQuesetLayer();
             }, this);

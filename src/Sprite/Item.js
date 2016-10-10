@@ -95,7 +95,7 @@ var Item = cc.Node.extend({
                 this.game.player.hp += Math.ceil(this.game.player.maxHp / 4);
                 this.game.addPlayerRecoverEffect("recover_hp");
             } else if (this.itemId == "magic") {
-                this.game.cutIn.setCutInText("「スタミナ」が " + Math.ceil(this.game.player.maxMp / 4) + " 回復した");
+                this.game.cutIn.setCutInText("「SP(SkillPoint)」が " + Math.ceil(this.game.player.maxMp / 4) + " 回復した");
                 this.game.player.mp += Math.ceil(this.game.player.maxMp / 4);
                 this.game.addPlayerRecoverEffect("recover_mp");
             } else if (this.itemId == "soul") {
@@ -104,7 +104,7 @@ var Item = cc.Node.extend({
                 this.game.storage.addSouls(_addSoulsAmount/10);
                 this.game.addPlayerRecoverEffect("got_soul");
             } else if (this.itemId == "player_soul") {
-                this.game.cutIn.setCutInText("落とした「魂」を" + this.game.storage.droppedSoulsAmount + " 取り戻した");
+                this.game.cutIn.setCutInText("落とした「魂」を" + this.game.storage.droppedSoulsAmount + " 取り戻した.");
                 this.game.storage.saveAndRecoverSoul();
                 this.game.addPlayerRecoverEffect("got_my_soul");
             }

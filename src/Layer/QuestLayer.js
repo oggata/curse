@@ -55,7 +55,7 @@ var QuestLayer = cc.Layer.extend({
         this.backSprite.setAnchorPoint(0, 0);
         this.addChild(this.backSprite);
 
-        this.towerBgLayer = cc.LayerColor.create(new cc.Color(0, 0, 0, 255 * 0.85), 640, 1400);
+        this.towerBgLayer = cc.LayerColor.create(new cc.Color(0, 0, 0, 255 * 1), 640, 1400);
         this.addChild(this.towerBgLayer);
         this.towerBgLayer.setVisible(false);
 

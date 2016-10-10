@@ -24,7 +24,7 @@ var StatusWindow = cc.Node.extend({
                 this.closeMenu();
             }, this);
         this.closeButton.setAnchorPoint(0.5, 0.5);
-        this.closeButton.setPosition(570, 970);
+        this.closeButton.setPosition(590, 970);
 
         this.menu = new cc.Menu(
             this.closeButton
