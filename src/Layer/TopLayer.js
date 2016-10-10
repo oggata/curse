@@ -52,7 +52,7 @@ var TopLayer = cc.Layer.extend({
             function() {
                 this.goToQuesetLayer();
             }, this);
-        gameButton.setPosition(320, 300);
+        gameButton.setPosition(320, 200);
 
         var scoreButton = new cc.MenuItemImage(
             "res/button_score.png",

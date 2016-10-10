@@ -7,7 +7,7 @@ CONFIG.BGM_VOLUME       = 1;
 CONFIG.SE_VOLUME        = 1;
 CONFIG.CARD_SPEND_COST  = 3;
 
-CONFIG.START_MESSAGE = "......塔の中に辿り着いた.....\n出口を探して、次の階を目指さなくては....\n..この地点からはいつでも戻れるようだ";
+CONFIG.START_MESSAGE = "......塔の中には......\n湿った陰気な空気が立ち込めている....\n";
 
 CONFIG.CUTIN_FONT_SIZE  = 23;
 CONFIG.MAP_POSITIONS = [
@@ -35,8 +35,8 @@ CONFIG.MAP_POSITIONS = [
         1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
         1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
         1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-        1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+        1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -674,8 +674,8 @@ CONFIG.ITEMS = [
         },
         { 
             "id"         : 6,
-            "product_id" : "status_magic_snow", 
-            "name"       : "魔力_氷",
+            "product_id" : "status_magic_water", 
+            "name"       : "魔力_水",
             "description" : "敵に与える魔法ダメージを\n増加させる.\n",
             "image"      : "res/card006.png",
             "type"       : "battle",
@@ -757,7 +757,7 @@ CONFIG.BOSS = [
             "id"         : 3,
             "name"       : "umisasori",
             "image"      : "res/boss_umisasori.png",
-            "weak"       : ['status_magic_snow'],
+            "weak"       : ['status_magic_water'],
             "strong"     : ['status_attack'],
         },
         { 
@@ -779,7 +779,7 @@ CONFIG.BOSS = [
             "name"       : "ningen",
             "image"      : "res/boss_ningen.png",
             "weak"       : ['status_attack'],
-            "strong"     : ['status_magic_snow'],
+            "strong"     : ['status_magic_water'],
         },
         { 
             "id"         : 7,
@@ -813,7 +813,7 @@ CONFIG.BOSS = [
             "id"         : 11,
             "name"       : "balam",
             "image"      : "res/boss_balam.png",
-            "weak"       : ['status_magic_snow'],
+            "weak"       : ['status_magic_water'],
             "strong"     : ['status_attack'],
         },
         { 
@@ -821,7 +821,7 @@ CONFIG.BOSS = [
             "name"       : "bafomet",
             "image"      : "res/boss_bafomet-re.png",
             "weak"       : ['status_attack'],
-            "strong"     : ['status_magic_snow'],
+            "strong"     : ['status_magic_water'],
         },
         { 
             "id"         : 13,
@@ -841,7 +841,7 @@ CONFIG.BOSS = [
             "id"         : 15,
             "name"       : "behemoth",
             "image"      : "res/boss_behemoth.png",
-            "weak"       : ['status_magic_snow'],
+            "weak"       : ['status_magic_water'],
             "strong"     : ['status_attack'],
         },
 ];
@@ -865,7 +865,7 @@ CONFIG.ENEMY = [
             "id"         : 2, 
             "name"       : "kelpee",
             "image"      : "res/e_kelpee.png",
-            "weak"       : ['status_magic_snow'],
+            "weak"       : ['status_magic_water'],
             "strong"     : ['status_magic_fire'],
         },
         { 
@@ -879,7 +879,7 @@ CONFIG.ENEMY = [
             "id"         : 4,
             "name"       : "ant-queen",
             "image"      : "res/e_ant-queen.png",
-            "weak"       : ['status_magic_snow'],
+            "weak"       : ['status_magic_water'],
             "strong"     : ['status_attack'],
         },
         { 
@@ -900,7 +900,7 @@ CONFIG.ENEMY = [
             "id"         : 7,
             "name"       : "giganuron",
             "image"      : "res/e_giganuron.png",
-            "weak"       : ['status_magic_snow'],
+            "weak"       : ['status_magic_water'],
             "strong"     : ['status_attack'],
         },
         { 
@@ -928,7 +928,7 @@ CONFIG.ENEMY = [
             "id"         : 11, 
             "name"       : "kairyu",
             "image"      : "res/e_kairyu.png",
-            "weak"       : ['status_magic_snow'],
+            "weak"       : ['status_magic_water'],
             "strong"     : ['status_magic_fire'],
         },
         { 
@@ -949,7 +949,7 @@ CONFIG.ENEMY = [
             "id"         : 14,
             "name"       : "peryton",
             "image"      : "res/e_peryton.png",
-            "weak"       : ['status_magic_snow'],
+            "weak"       : ['status_magic_water'],
             "strong"     : ['status_attack'],
         },
         { 
@@ -992,7 +992,7 @@ CONFIG.ENEMY = [
             "name"       : "cockatris",
             "image"      : "res/e_cockatris.png",
             "weak"       : ['status_attack'],
-            "strong"     : ['status_magic_snow'],
+            "strong"     : ['status_magic_water'],
         },
         { 
             "id"         : 21,
@@ -1006,7 +1006,7 @@ CONFIG.ENEMY = [
             "name"       : "red-devil",
             "image"      : "res/e_red-devil.png",
             "weak"       : ['status_attack'],
-            "strong"     : ['status_magic_snow'],
+            "strong"     : ['status_magic_water'],
         },
         { 
             "id"         : 23,
@@ -1033,7 +1033,7 @@ CONFIG.ENEMY = [
             "id"         : 26,
             "name"       : "glasya-labolas",
             "image"      : "res/e_glasya-labolas.png",
-            "weak"       : ['status_magic_snow'],
+            "weak"       : ['status_magic_water'],
             "strong"     : ['status_attack'],
         },
         { 
@@ -1417,31 +1417,35 @@ CONFIG.GUIDE_MESSAGE_001  = [
     ].join("\n"),
     [
         '........',
-        '....なんだ、、お前はニンゲンか？.......',
+        '....なんだ、、お前は人間か？.......',
         '',
     ].join("\n"),
     [
-        '最後にニンゲンを見たのはいつのことだったか...',
+        '最後に人を見たのはいつのことだったか...',
         'まだこの場所に来る者がいようとは.......',
         '',
     ].join("\n"),
     [
         'この場所は「最果ての塔」と呼ばる場所...',
-        '世界の果てにある呪われた地だ....',
+        '世界の果てにある、呪われた塔だ....',
         '',
     ].join("\n"),
     [
-        'そして、私はこの呪われた塔の番人...',
-        'もうかれこれ1000年以上もこうして、',
-        'この場所に住み着いている........',
+        'そして、私はこの呪われた塔の番人として...',
+        'かれこれ1000年以上もこうして、',
+        'ここに住み着いている........',
     ].join("\n"),
     [
-        '...あの塔の先は、雲に隠れ、一体どのくらいの',
-        '...高さがあるのかはわからないが....',
+        '...お主はあの塔に行こうというのか？',
+        '.............',
     ].join("\n"),
     [
-        '...その頂上に登りし者には...',
-        'まぁ挑んでみるのもまた良いだろう....',
+        '...塔にはそれはそれは恐ろしい悪魔が',
+        '...住むという...',
+    ].join("\n"),
+    [
+        '...行くのであれば心して、行きなさい.....',
+        '......',
     ].join("\n"),
 ];
 
@@ -1452,12 +1456,22 @@ CONFIG.GUIDE_MESSAGE_002  = [
         '',
     ].join("\n"),
     [
-        '...この塔には悪魔が住むという...',
-        '...生き抜く術は、戦うことのみ....',
+        '....あの塔はかつて、人が滅ぼされた村に.......',
+        '....突如出来上がった、呪いの塔....',
+        '',
     ].join("\n"),
     [
-        '...古びた剣と魔法を与えてやる...',
-        '...これで悪魔を打ち砕くことができるだろう...',
+        '....今では悪魔の巣となっている.......',
+        '........',
+        '',
+    ].join("\n"),
+    [
+        '...古びた剣と魔法をお主に与えよう...',
+        '......',
+    ].join("\n"),
+    [
+        '...悪魔に出くわした時、お主はその宿る力で...',
+        '...立ち向かうがよい.......',
     ].join("\n"),
     [
         '........',
@@ -1470,7 +1484,7 @@ CONFIG.GUIDE_MESSAGE_003  = [
         '',
     ].join("\n"),
     [
-        '...魂を持っておるな...',
+        '...悪魔の落とした魂を持っておるな...',
         '悪魔を倒すことで手にする「魂」のかけら..',
     ].join("\n"),
     [
@@ -1482,7 +1496,7 @@ CONFIG.GUIDE_MESSAGE_003  = [
         '落としてしまう...',
     ].join("\n"),
     [
-        '.......',
+        '...気をつけることだ....',
     ].join("\n"),
 ];
 
@@ -1512,20 +1526,24 @@ CONFIG.GUIDE_MESSAGE_005  = [
         '',
     ].join("\n"),
     [
-        '...この塔は5つのフロアから成る...',
-        'そして次の階に進むには門番の試練が',
-        '待ち受けている....',
+        '...この塔の頂上は、雲に隠れ...',
+        '下から見上げるだけでは',
+        'どれ程の高さかすらわからない...',
     ].join("\n"),
     [
-        '...強敵にぶち当たった時には.....',
-        '...少し戻って魂を集め、能力を上げるのも..',
-        'ひとつの選択....',
+        '...上へ上へと進む時...',
+        '各界には、門番と呼ばれる',
+        '試練が待ち受けているという....',
+    ].join("\n"),
+    [
+        '次のフロアには....',
+        '心して進むがよい....',
+        '...',
     ].join("\n"),
     [
         '.......',
     ].join("\n"),
 ];
-
 
 CONFIG.GUIDE_MESSAGE_101  = [
     [

@@ -143,8 +143,8 @@ var StatusButtonSprite = cc.Node.extend({
         this.cardBaseNode.addChild(this.card007Sprite);
         this.card008Sprite = cc.Sprite.create("res/card008.png");
         this.cardBaseNode.addChild(this.card008Sprite);
-        this.card009Sprite = cc.Sprite.create("res/card009.png");
-        this.cardBaseNode.addChild(this.card009Sprite);
+        //this.card009Sprite = cc.Sprite.create("res/card009.png");
+        //this.cardBaseNode.addChild(this.card009Sprite);
         this.card010Sprite = cc.Sprite.create("res/card010.png");
         this.cardBaseNode.addChild(this.card010Sprite);
         this.card011Sprite = cc.Sprite.create("res/card011.png");
@@ -173,7 +173,7 @@ var StatusButtonSprite = cc.Node.extend({
         this.card006Sprite.setVisible(false);
         this.card007Sprite.setVisible(false);
         this.card008Sprite.setVisible(false);
-        this.card009Sprite.setVisible(false);
+        //this.card009Sprite.setVisible(false);
         this.card010Sprite.setVisible(false);
         this.card011Sprite.setVisible(false);
         this.card012Sprite.setVisible(false);
@@ -199,7 +199,7 @@ var StatusButtonSprite = cc.Node.extend({
           case "status_magic_light":
             this.card005Sprite.setVisible(true);
             break;
-          case "status_magic_snow":
+          case "status_magic_water":
             this.card006Sprite.setVisible(true);
             break;
           case "status_recover":

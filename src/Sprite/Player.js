@@ -56,7 +56,7 @@ var Player = cc.Node.extend({
             case "status_magic_light":
                 _effectNum = 202;
                 break;
-            case "status_magic_snow":
+            case "status_magic_water":
                 _effectNum = 203;
                 break;
         }
@@ -75,7 +75,7 @@ var Player = cc.Node.extend({
             case "status_magic_light":
                 _effectNum = 302;
                 break;
-            case "status_magic_snow":
+            case "status_magic_water":
                 _effectNum = 303;
                 break;
         }
@@ -83,13 +83,9 @@ var Player = cc.Node.extend({
     },
 
     attack: function(productId,isClitical,comboCnt) {
-        playSE001(this.game.storage);
-        cc.log("attack");
-
+        //cc.log("attack");
         this.comboCnt = comboCnt;
-
         var _damage = this.game.storage.getEnemyDamage(this.targetEnemy.level,productId);
-
         var _effectNum = 0;
         if(isClitical == true){
             _effectNum = this.getCriticalEffectType(productId);
@@ -97,7 +93,6 @@ var Player = cc.Node.extend({
         }else{
             _effectNum = this.getEffectType(productId);
         }
-
         if (this.targetEnemy != null && this.hp > 0) {
             var _hitOption = null;
             if(this.checkIsCritical(this.targetEnemy,productId) == "weak"){

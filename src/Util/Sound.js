@@ -1,3 +1,4 @@
+//game_maoudamashii_7_event46
 var playBGM = function(storage){
     if(storage.bgmVolume != 0)
     {
@@ -39,7 +40,7 @@ var playBattleBGM = function(storage){
     {
         var audioEngine = cc.audioEngine;
         audioEngine.stopMusic();
-        audioEngine.playMusic("res/bgm_game_maoudamashii_1_battle27.mp3",true); //BGM
+        audioEngine.playMusic("res/game_maoudamashii_4_field08.mp3",true); //BGM
     }
 };
 
@@ -52,7 +53,7 @@ var playBattleBGM002 = function(storage){
     }
 };
 
-//se_maoudamashii_element_darkness01.mp3
+//切る音
 var playSE001 = function(storage){
     if(storage.seVolume != 0)
     {
@@ -61,6 +62,7 @@ var playSE001 = function(storage){
     }
 };
 
+//敵からのダメージ
 var playSE002 = function(storage){
     if(storage.seVolume != 0)
     {
@@ -69,6 +71,7 @@ var playSE002 = function(storage){
     }
 };
 
+//歩く
 var playSE003 = function(storage){
     if(storage.seVolume != 0)
     {
@@ -77,6 +80,7 @@ var playSE003 = function(storage){
     }
 };
 
+//?
 var playSE004 = function(storage){
     if(storage.seVolume != 0)
     {
@@ -85,6 +89,7 @@ var playSE004 = function(storage){
     }
 };
 
+//爆発
 var playSE005 = function(storage){
     if(storage.seVolume != 0)
     {
@@ -93,13 +98,16 @@ var playSE005 = function(storage){
     }
 };
 
+//アイテム取得
 var playSE006 = function(storage){
     if(storage.seVolume != 0)
     {
         var audioEngine = cc.audioEngine;
-        audioEngine.playEffect("res/se_maoudamashii_magical21.mp3",false);
+        audioEngine.playEffect("res/se_maoudamashii_onepoint12.mp3",false);
     }
 };
+
+//
 var playSE007 = function(storage){
     if(storage.seVolume != 0)
     {
@@ -108,6 +116,7 @@ var playSE007 = function(storage){
     }
 };
 
+
 var playSE008 = function(storage){
     if(storage.seVolume != 0)
     {
@@ -115,6 +124,7 @@ var playSE008 = function(storage){
         audioEngine.playEffect("res/se_maoudamashii_retro14.mp3",false);
     }
 };
+
 
 var playSE009 = function(storage){
     if(storage.seVolume != 0)

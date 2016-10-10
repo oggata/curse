@@ -32,7 +32,7 @@ var QuestLayer = cc.Layer.extend({
         this.storage.saveItemDataToStorage("status_defence", 0);
         this.storage.saveItemDataToStorage("status_magic_fire", 0);
         this.storage.saveItemDataToStorage("status_magic_light", 0);
-        this.storage.saveItemDataToStorage("status_magic_snow", 0);
+        this.storage.saveItemDataToStorage("status_magic_water", 0);
         this.storage.saveItemDataToStorage("status_recover", 0);
         this.storage.saveItemDataToStorage("status_fast", 0);
         this.storage.saveItemDataToStorage("status_luck", 0);

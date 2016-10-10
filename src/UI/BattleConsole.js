@@ -95,7 +95,7 @@ var battleCard = cc.Node.extend({
                     }else if(_rand == 3){
                         this.battleConsole.maxSpProductId = "status_magic_light";
                     }else if(_rand == 4){
-                        this.battleConsole.maxSpProductId = "status_magic_snow";
+                        this.battleConsole.maxSpProductId = "status_magic_water";
                     }else{
                         this.battleConsole.maxSpProductId = "status_attack";
                     }
@@ -179,7 +179,7 @@ var battleCard = cc.Node.extend({
                         this.game.player.attack(this.productId ,this.isCritical,this.battleConsole.formerProductCnt);
                         this.game.leftHandAttack();
                         break;
-                    case "status_magic_snow":
+                    case "status_magic_water":
                         this.game.player.attack(this.productId ,this.isCritical,this.battleConsole.formerProductCnt);
                         this.game.leftHandAttack();
                         break;
@@ -291,7 +291,7 @@ var battleConsole = cc.Node.extend({
                 if(_items[i]['product_id'] == 'status_magic_light'){
                     _cards.push(_items[i]);
                 }
-                if(_items[i]['product_id'] == 'status_magic_snow'){
+                if(_items[i]['product_id'] == 'status_magic_water'){
                     _cards.push(_items[i]);
                 }
             }
