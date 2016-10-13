@@ -1,5 +1,72 @@
 {
+    "android": {
+        "AdMob": {
+            "test": true, 
+            "ads": {
+                "gameover": {
+                    "type": "interstitial", 
+                    "id": "ca-app-pub-000/000"
+                }, 
+                "home": {
+                    "type": "banner", 
+                    "id": "ca-app-pub-000/000", 
+                    "alignment": "bottom",
+                    "width": 0,  
+                    "height": 0
+                }
+            }
+        }, 
+        "sdkboxplay": {
+            "leaderboards": [
+                {
+                    "id": "CgkI0sux8sMWEAIQAA", 
+                    "name": "ldb1"
+                }
+            ], 
+            "achievements": [
+                {
+                    "incremental": false, 
+                    "id": "CgkI0sux8sMWEAIQAg", 
+                    "name": "ten-games"
+                }, 
+                {
+                    "incremental": false, 
+                    "id": "CgkI0sux8sMWEAIQAw", 
+                    "name": "hunter"
+                }, 
+                {
+                    "incremental": false, 
+                    "id": "CgkI0sux8sMWEAIQBA", 
+                    "name": "craftsman"
+                }, 
+                {
+                    "incremental": true, 
+                    "id": "CgkI0sux8sMWEAIQBQ", 
+                    "name": "incremental"
+                }
+            ], 
+            "connect_on_start": false, 
+            "show_achievement_notification": true, 
+            "debug": true
+        }
+    }, 
     "ios": {
+        "AdMob": {
+            "test": true, 
+            "ads": {
+                "gameover": {
+                    "type": "interstitial", 
+                    "id": ""
+                }, 
+                "home": {
+                    "type": "banner", 
+                    "id": "", 
+                    "alignment": "bottom",
+                    "width": 0,
+                    "height": 0
+                }
+            }
+        }, 
         "sdkboxplay": {
             "leaderboards": [
                 {

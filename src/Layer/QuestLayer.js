@@ -120,52 +120,203 @@ var QuestLayer = cc.Layer.extend({
         this.tmpY = this.charactorSprite.getPosition().y;
         this.moveDirection = "up";
 
-        var initSDK = function() {
-            if ("undefined" == typeof(sdkbox)) {
-                console.log("sdkbox is not exist")
-                return
-            }
-
-            if ("undefined" != typeof(sdkbox.PluginSdkboxPlay)) {
-                var plugin = sdkbox.PluginSdkboxPlay
-                plugin.setListener({
-                    onScoreSubmitted: function(leaderboard_name, score, maxScoreAllTime, maxScoreWeek, maxScoreToday) {
-                        cc.log("on score " + score + " submitted to leaderboard: " + leaderboard_name);
-                        cc.log("all time hi " + maxScoreAllTime ? 1 : 0);
-                        cc.log("weekly hi " + maxScoreWeek ? 1 : 0);
-                        cc.log("daily hi " + maxScoreToday ? 1 : 0);
-                    },
-                    onIncrementalAchievementUnlocked: function(achievement_name) {
-                        cc.log("incremental achievement " + achievement_name + " unlocked.");
-                    },
-                    onIncrementalAchievementStep: function(achievement_name, step) {
-                        cc.log("incremental achievent " + achievement_name + " step: " + step);
-                    },
-                    onAchievementUnlocked: function(achievement_name, newlyUnlocked) {
-                        cc.log("achievement " + achievement_name + " unlocked (new " + newlyUnlocked ? 1 : 0 + ")");
-                    },
-                    onConnectionStatusChanged: function(connection_status) {
-                        cc.log("connection status change: " + connection_status + " connection_status");
-                    }
-                });
-                plugin.init();
-
-            } else {
-                printf("no plugin init")
-            }
-        }
-
-        initSDK();
-
+        /*
         if ("undefined" != typeof(sdkbox)) {
             sdkbox.PluginSdkboxPlay.signin();
             this.sendGameCenter();
             cc.log("send gamecenter");
         }
+        */
+
+        this.admobInit();
+        //this.sdkboxPlayInit();
+
+        this.updateCnt = 0;
+        this.isAdAvailable = false;
 
         this.scheduleUpdate();
-
         return true;
+    },
+
+    update: function(dt) {
+        //adを表示する
+        this.updateCnt++;
+        if(this.updateCnt >= 30 * 5 && this.isAdAvailable == false){
+            this.isAdAvailable = true;
+            this.updateCnt = 0;
+            if (sdkbox.PluginAdMob.isAvailable("home") ) {
+                sdkbox.PluginAdMob.show("home");
+            } else {
+                cc.log('adMob: admob interstitial ad is not ready');
+            }
+        }
+
+        var floorData = this.storage.getStageNumber(this.floorNumber);
+        this.header.stageLabel.setString(floorData['visibleNum']);
+
+        this.towerBgLayer.setVisible(false);
+        this.tower001Sprite.setVisible(false);
+        this.tower002Sprite.setVisible(false);
+        this.tower003Sprite.setVisible(false);
+        this.tower004Sprite.setVisible(false);
+        this.tower005Sprite.setVisible(false);
+
+        if (this.message2Sprite.isVisible() == true) {
+            this.charactorSprite.setVisible(false);
+            if (this.floorNumber % 5 == 1) {
+                this.tower001Sprite.setVisible(true);
+            }
+            if (this.floorNumber % 5 == 2) {
+                this.tower002Sprite.setVisible(true);
+            }
+            if (this.floorNumber % 5 == 3) {
+                this.tower003Sprite.setVisible(true);
+            }
+            if (this.floorNumber % 5 == 4) {
+                this.tower004Sprite.setVisible(true);
+            }
+            if (this.floorNumber % 5 == 0) {
+                this.tower005Sprite.setVisible(true);
+            }
+            this.towerBgLayer.setVisible(true);
+        } else {
+            this.charactorSprite.setVisible(true);
+        }
+
+        if (this.message3Sprite.isVisible()) {
+            this.messageSprite.setVisible(false);
+            this.message2Sprite.setVisible(false);
+        }
+
+        if (this.moveDirection == "up") {
+            this.charactorSprite.setPosition(
+                this.charactorSprite.getPosition().x,
+                this.charactorSprite.getPosition().y + 0.5
+            );
+            if (this.charactorSprite.getPosition().y > this.tmpY + 20) {
+                this.moveDirection = "down";
+            }
+        } else {
+            this.charactorSprite.setPosition(
+                this.charactorSprite.getPosition().x,
+                this.charactorSprite.getPosition().y - 0.5
+            );
+            if (this.charactorSprite.getPosition().y <= this.tmpY) {
+                this.moveDirection = "up";
+            }
+        }
+
+        //メッセージを送る
+        if (this.messages && this.storage.forceReturnStageNum == 0) {
+            if (this.messages.length >= 1 && this.isSendedMsg == false) {
+                this.cutIn2.setCutInText(this.messages[0]);
+                this.isSendedMsg = true;
+            }
+        }
+
+        //カットインをフェードアウト
+        this.cutIn2.update();
+
+        this.header.coinCnt.setString(this.storage.tmpSoulsAmount);
+        this.header.hpGauge.update(1);
+        this.header.mpGauge.update(this.storage.lastPlayerMp / 100);
+        var _vFloorNum = ("000" + this.floorNumber).slice(-3);
+        var floorData = this.storage.getStageNumber(this.floorNumber);
+        this.nextFloorLable.setString("START " + floorData['visibleNum'] + "F");
+    },
+
+
+    showInfo: function(text) {
+        console.log(text);
+        if (this.infoLabel) {
+            var lines = this.infoLabel.string.split('\n');
+            var t = '';
+            if (lines.length > 0) {
+                t = lines[lines.length - 1] + '\n';
+            }
+            t += text;
+            this.infoLabel.string = t;
+        }
+    },
+
+    admobInit: function() {
+        if ('undefined' == typeof(sdkbox)) {
+            this.showInfo('sdkbox is undefined')
+            return;
+        }
+        if ('undefined' == typeof(sdkbox.PluginAdMob)) {
+            this.showInfo('sdkbox.PluginAdMob is undefined')
+            return;
+        }
+
+        let self = this
+        sdkbox.PluginAdMob.setListener({
+            adViewDidReceiveAd: function(name) {
+                self.showInfo('adViewDidReceiveAd name=' + name);
+            },
+            adViewDidFailToReceiveAdWithError: function(name, msg) {
+                self.showInfo('adViewDidFailToReceiveAdWithError name=' + name + ' msg=' + msg);
+            },
+            adViewWillPresentScreen: function(name) {
+                self.showInfo('adViewWillPresentScreen name=' + name);
+            },
+            adViewDidDismissScreen: function(name) {
+                self.showInfo('adViewDidDismissScreen name=' + name);
+            },
+            adViewWillDismissScreen: function(name) {
+                self.showInfo('adViewWillDismissScreen=' + name);
+            },
+            adViewWillLeaveApplication: function(name) {
+                self.showInfo('adViewWillLeaveApplication=' + name);
+            }
+        });
+        sdkbox.PluginAdMob.init();
+
+        // just for test
+        let plugin = sdkbox.PluginAdMob
+        if ("undefined" != typeof(plugin.deviceid) && plugin.deviceid.length > 0) {
+            this.showInfo('deviceid=' + plugin.deviceid);
+            // plugin.setTestDevices(plugin.deviceid);
+        }
+    },
+
+    sdkboxPlayInit: function() {
+        if ('undefined' == typeof(sdkbox)) {
+            this.showInfo('sdkbox is undefined')
+            return;
+        }
+        if ('undefined' == typeof(sdkbox.PluginSdkboxPlay)) {
+            this.showInfo('sdkbox.PluginSdkboxPlay is undefined')
+            return;
+        }
+
+        if ("undefined" != typeof(sdkbox.PluginSdkboxPlay)) {
+            var plugin = sdkbox.PluginSdkboxPlay
+            plugin.setListener({
+                onScoreSubmitted: function(leaderboard_name, score, maxScoreAllTime, maxScoreWeek, maxScoreToday) {
+                    cc.log("on score " + score + " submitted to leaderboard: " + leaderboard_name);
+                    cc.log("all time hi " + maxScoreAllTime ? 1 : 0);
+                    cc.log("weekly hi " + maxScoreWeek ? 1 : 0);
+                    cc.log("daily hi " + maxScoreToday ? 1 : 0);
+                },
+                onIncrementalAchievementUnlocked: function(achievement_name) {
+                    cc.log("incremental achievement " + achievement_name + " unlocked.");
+                },
+                onIncrementalAchievementStep: function(achievement_name, step) {
+                    cc.log("incremental achievent " + achievement_name + " step: " + step);
+                },
+                onAchievementUnlocked: function(achievement_name, newlyUnlocked) {
+                    cc.log("achievement " + achievement_name + " unlocked (new " + newlyUnlocked ? 1 : 0 + ")");
+                },
+                onConnectionStatusChanged: function(connection_status) {
+                    cc.log("connection status change: " + connection_status + " connection_status");
+                }
+            });
+            plugin.init();
+
+        } else {
+            printf("no plugin init")
+        }
     },
 
     sendGameCenter: function() {
@@ -587,82 +738,6 @@ var QuestLayer = cc.Layer.extend({
             )
         );
         cc.director.runScene(cc.TransitionFade.create(1.5, scene));
-    },
-
-    update: function(dt) {
-        var floorData = this.storage.getStageNumber(this.floorNumber);
-        this.header.stageLabel.setString(floorData['visibleNum']);
-
-        this.towerBgLayer.setVisible(false);
-        this.tower001Sprite.setVisible(false);
-        this.tower002Sprite.setVisible(false);
-        this.tower003Sprite.setVisible(false);
-        this.tower004Sprite.setVisible(false);
-        this.tower005Sprite.setVisible(false);
-
-        if (this.message2Sprite.isVisible() == true) {
-            this.charactorSprite.setVisible(false);
-            if (this.floorNumber % 5 == 1) {
-                this.tower001Sprite.setVisible(true);
-            }
-            if (this.floorNumber % 5 == 2) {
-                this.tower002Sprite.setVisible(true);
-            }
-            if (this.floorNumber % 5 == 3) {
-                this.tower003Sprite.setVisible(true);
-            }
-            if (this.floorNumber % 5 == 4) {
-                this.tower004Sprite.setVisible(true);
-            }
-            if (this.floorNumber % 5 == 0) {
-                this.tower005Sprite.setVisible(true);
-            }
-            this.towerBgLayer.setVisible(true);
-        } else {
-            this.charactorSprite.setVisible(true);
-        }
-
-
-        if (this.message3Sprite.isVisible()) {
-            this.messageSprite.setVisible(false);
-            this.message2Sprite.setVisible(false);
-        }
-
-        if (this.moveDirection == "up") {
-            this.charactorSprite.setPosition(
-                this.charactorSprite.getPosition().x,
-                this.charactorSprite.getPosition().y + 0.5
-            );
-            if (this.charactorSprite.getPosition().y > this.tmpY + 20) {
-                this.moveDirection = "down";
-            }
-        } else {
-            this.charactorSprite.setPosition(
-                this.charactorSprite.getPosition().x,
-                this.charactorSprite.getPosition().y - 0.5
-            );
-            if (this.charactorSprite.getPosition().y <= this.tmpY) {
-                this.moveDirection = "up";
-            }
-        }
-
-        //メッセージを送る
-        if (this.messages && this.storage.forceReturnStageNum == 0) {
-            if (this.messages.length >= 1 && this.isSendedMsg == false) {
-                this.cutIn2.setCutInText(this.messages[0]);
-                this.isSendedMsg = true;
-            }
-        }
-
-        //カットインをフェードアウト
-        this.cutIn2.update();
-
-        this.header.coinCnt.setString(this.storage.tmpSoulsAmount);
-        this.header.hpGauge.update(1);
-        this.header.mpGauge.update(this.storage.lastPlayerMp / 100);
-        var _vFloorNum = ("000" + this.floorNumber).slice(-3);
-        var floorData = this.storage.getStageNumber(this.floorNumber);
-        this.nextFloorLable.setString("START " + floorData['visibleNum'] + "F");
     },
 
     _distanceBetweenPositions: function(p1, p2) {
