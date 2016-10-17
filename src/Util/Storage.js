@@ -34,7 +34,7 @@ var Storage = cc.Class.extend({
         var data = new Object();
         data['floorNum'] = floorNum;
         data['roomNum']  = roomNum;
-        data['visibleNum']  = "F" + ("000" + floorNum).slice(-3) + "-" + roomNum;
+        data['visibleNum']  = "F" + ("000" + stageNum).slice(-3) + "";
         return data;
     },
 
@@ -387,7 +387,7 @@ var Storage = cc.Class.extend({
                 var value = stData[stDataKey];
                 var toObj = JSON.parse(value);
                 if (toObj['id'] == "status_luck") {
-                    _mp = this.getHpAmountByLevel(toObj['amount']);
+                    _mp = this.getHpAmountByLevel(toObj['amount']) / 5;
                 }
             }
         }

@@ -719,9 +719,9 @@ var GameLayer = cc.Layer.extend({
             var _reward = this.storage.getStageClearRewordAmountByLebel(this._stageNum);
             this.storage.addSouls(Math.ceil(_reward));
             var _text = "この階の最終チェックポイントに到着した.\n";
-            _text += "報酬として魂を " + Math.ceil(_reward) + " 得た.......\n";
-            _text += ".....塔の外に転送しています.............\n";
-            _text += ".....................................\n";
+            _text += "報酬として魂を " + Math.ceil(_reward) + " 得た.\n";
+            _text += "塔の外に転送しています........................\n";
+            _text += "...........................................\n";
             this.addPlayerEscapeEffect();
             this.cutIn.setCutInText(_text);
             playBGM004(this.storage);
