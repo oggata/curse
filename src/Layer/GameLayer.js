@@ -173,29 +173,7 @@ var GameLayer = cc.Layer.extend({
 
         this.mapDisplayScale2 = 1;
         this.mapDisplayScaleDirection = "up";
-/*
-        //combo
-        this.comboSprite = cc.Sprite.create("res/combo.png");
-        this.comboSprite.retain();
-        this.comboSprite.setAnchorPoint(0, 0);
-        this.comboSprite.setPosition(250, 500);
-        //this.windowObjectDisplayNode.addChild(this.comboSprite, 9999);
-        this.comboSprite.setVisible(false);
 
-        this.comboLabel = cc.LabelTTF.create("2", "Arial", 32);
-        this.comboLabel.setFontFillColor(new cc.Color(255, 255, 255, 255));
-        this.comboLabel.setAnchorPoint(1, 0);
-        this.comboLabel.enableStroke(new cc.Color(0, 0, 0, 255), 3, false);
-        this.comboLabel.setPosition(-7, 0);
-        this.comboSprite.addChild(this.comboLabel);
-
-        this.spSprite = cc.Sprite.create("res/combo.png");
-        this.spSprite.retain();
-        this.spSprite.setAnchorPoint(0, 0);
-        this.spSprite.setPosition(250, 500);
-        this.windowObjectDisplayNode.addChild(this.spSprite, 9999);
-        this.spSprite.setVisible(false);
-*/
         this.criticalSprite = cc.Sprite.create("res/card012.png");
         this.criticalSprite.retain();
         this.criticalSprite.setScale(0.4,0.4);
@@ -207,10 +185,32 @@ var GameLayer = cc.Layer.extend({
         this.battleConsolePos = 0;
         this.battleConsoleDirection = "up";
         cc.log("このステージは" + stageNum + "です. mapIdは" + this.mapId + ",startPosは" + this.startPosNum + "finishPosは" + this.finishPosNum + "です.Soulは" + this.storage.lastDroppedSoulPos + "にあります");
+        
+        this.updateCnt = 0;
+        this.isAdAvailable = false;
+
         return true;
     },
 
     update: function(dt) {
+        //adを表示する
+        this.updateCnt++;
+        if(this.updateCnt >= 30 * 3 && this.isAdAvailable == false){
+            this.isAdAvailable = true;
+            this.updateCnt = 0;
+            if ('undefined' == typeof(sdkbox)) {
+                //this.showInfo('sdkbox is undefined')
+                cc.log('sdkbox is undefined');
+                return;
+            }else{
+                if (sdkbox.PluginAdMob.isAvailable("home") ) {
+                    sdkbox.PluginAdMob.show("home");
+                } else {
+                    cc.log('adMob: admob interstitial ad is not ready');
+                }
+            }
+        }
+
         this.cutIn.update();
         this.moveConsole.update();
 
@@ -458,10 +458,11 @@ var GameLayer = cc.Layer.extend({
     },
 
     addEnemyByPos: function(posNum) {
-        var _baseLevel = Math.ceil(this._stageNum / 5);
+        var _baseLevel = Math.ceil(this._stageNum / 3);
         var _level = getRandNumberFromRange(_baseLevel, _baseLevel + 2);
         if (this.isBossFloor == 1) {
             _level = _baseLevel + 6;
+            posNum = 373;
         }
         var _enemy = new Enemy(this, _level, this.isBossFloor, posNum);
         this.windowObjectDisplayNode.addChild(_enemy);
@@ -891,7 +892,7 @@ var GameLayer = cc.Layer.extend({
                 this.doorPositions.push(i);
             }
         }
-
+//cc.log(this.setPositions);
         //ランダムに並び替え
         for (var s = 0; s < 10; s++) {
             this.setPositions.sort(this.shuffle);

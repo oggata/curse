@@ -8,9 +8,9 @@ var StatusWindow = cc.Node.extend({
         this.bgLayer = cc.LayerColor.create(new cc.Color(0, 0, 0, 255 * 1), 640, 1400);
         this.addChild(this.bgLayer);
 
-        this.tableView = new cc.TableView(this.dataSource, cc.size(640,740));
+        this.tableView = new cc.TableView(this.dataSource, cc.size(640,840));
         this.tableView.setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL);
-        this.tableView.setPosition(0,200);
+        this.tableView.setPosition(0,100);
 
         this.tableView.setDelegate(this);
         this.tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);

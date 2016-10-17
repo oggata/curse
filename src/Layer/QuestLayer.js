@@ -13,6 +13,11 @@ var QuestLayer = cc.Layer.extend({
             this.storage.maxUnlockedStage = 1;
         }
         this.maxClearedFloor = this.storage.maxUnlockedStage;
+        //this.maxClearedFloor = 90;
+        if(this.maxClearedFloor > 5 * 12){
+            this.maxClearedFloor = 5 * 12;
+        }
+
         if (this.storage.lastFloorNum > 0) {
             this.floorNumber = this.storage.lastFloorNum;
         } else {
@@ -58,6 +63,26 @@ var QuestLayer = cc.Layer.extend({
         this.towerBgLayer = cc.LayerColor.create(new cc.Color(0, 0, 0, 255 * 1), 640, 1400);
         this.addChild(this.towerBgLayer);
         this.towerBgLayer.setVisible(false);
+
+        this.towerBgBlueLayer = cc.LayerColor.create(new cc.Color(0, 0, 128, 255 * 0.3), 640, 1400);
+        this.addChild(this.towerBgBlueLayer);
+        this.towerBgBlueLayer.setVisible(false);
+
+        this.towerBgRedLayer = cc.LayerColor.create(new cc.Color(128, 0, 0, 255 * 0.3), 640, 1400);
+        this.addChild(this.towerBgRedLayer);
+        this.towerBgRedLayer.setVisible(false);
+
+        this.towerBgYellowLayer = cc.LayerColor.create(new cc.Color(255, 215, 0, 255 * 0.3), 640, 1400);
+        this.addChild(this.towerBgYellowLayer);
+        this.towerBgYellowLayer.setVisible(false);
+
+        this.towerBgGreenLayer = cc.LayerColor.create(new cc.Color(85, 107, 47, 255 * 0.3), 640, 1400);
+        this.addChild(this.towerBgGreenLayer);
+        this.towerBgGreenLayer.setVisible(false);
+
+        this.towerBgBlackLayer = cc.LayerColor.create(new cc.Color(0, 0, 0, 255 * 0.3), 640, 1400);
+        this.addChild(this.towerBgBlackLayer);
+        this.towerBgBlackLayer.setVisible(false);
 
         //タワーの図をセット
         this.tower001Sprite = cc.Sprite.create("res/tower_map_001.png");
@@ -141,13 +166,18 @@ var QuestLayer = cc.Layer.extend({
     update: function(dt) {
         //adを表示する
         this.updateCnt++;
-        if(this.updateCnt >= 30 * 5 && this.isAdAvailable == false){
+        if(this.updateCnt >= 30 * 3 && this.isAdAvailable == false){
             this.isAdAvailable = true;
             this.updateCnt = 0;
-            if (sdkbox.PluginAdMob.isAvailable("home") ) {
-                sdkbox.PluginAdMob.show("home");
-            } else {
-                cc.log('adMob: admob interstitial ad is not ready');
+            if ('undefined' == typeof(sdkbox)) {
+                this.showInfo('sdkbox is undefined')
+                return;
+            }else{
+                if (sdkbox.PluginAdMob.isAvailable("home") ) {
+                    sdkbox.PluginAdMob.show("home");
+                } else {
+                    cc.log('adMob: admob interstitial ad is not ready');
+                }
             }
         }
 
@@ -160,6 +190,28 @@ var QuestLayer = cc.Layer.extend({
         this.tower003Sprite.setVisible(false);
         this.tower004Sprite.setVisible(false);
         this.tower005Sprite.setVisible(false);
+
+        this.towerBgBlueLayer.setVisible(false);
+        this.towerBgYellowLayer.setVisible(false);
+        this.towerBgRedLayer.setVisible(false);
+        this.towerBgGreenLayer.setVisible(false);
+        this.towerBgBlackLayer.setVisible(false);
+
+       // var floorData = this.game.storage.getStageNumber(this.game._stageNum);
+        var floorNum = floorData['floorNum'];
+        var floorImageId = floorNum % 5;
+        if (floorImageId == 0) {
+            this.towerBgBlackLayer.setVisible(true);
+        } else if(floorImageId == 1) {
+            this.towerBgBlueLayer.setVisible(true);
+        } else if(floorImageId == 2) {
+            this.towerBgYellowLayer.setVisible(true);
+        } else if(floorImageId == 3) {
+            this.towerBgRedLayer.setVisible(true);
+        } else if(floorImageId == 4) {
+            this.towerBgGreenLayer.setVisible(true);
+        }
+
 
         if (this.message2Sprite.isVisible() == true) {
             this.charactorSprite.setVisible(false);
@@ -249,7 +301,7 @@ var QuestLayer = cc.Layer.extend({
             return;
         }
 
-        let self = this
+        var self = this
         sdkbox.PluginAdMob.setListener({
             adViewDidReceiveAd: function(name) {
                 self.showInfo('adViewDidReceiveAd name=' + name);
@@ -273,7 +325,7 @@ var QuestLayer = cc.Layer.extend({
         sdkbox.PluginAdMob.init();
 
         // just for test
-        let plugin = sdkbox.PluginAdMob
+        var plugin = sdkbox.PluginAdMob
         if ("undefined" != typeof(plugin.deviceid) && plugin.deviceid.length > 0) {
             this.showInfo('deviceid=' + plugin.deviceid);
             // plugin.setTestDevices(plugin.deviceid);

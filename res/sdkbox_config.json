@@ -52,7 +52,7 @@
     }, 
     "ios": {
         "AdMob": {
-            "test": true, 
+            "test": false, 
             "ads": {
                 "gameover": {
                     "type": "interstitial", 

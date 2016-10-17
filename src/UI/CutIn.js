@@ -349,15 +349,6 @@ var CutIn = cc.Node.extend({
     },
 });
 
-
-//
-//  CutIn2.js
-//  Yamataikoku
-//
-//  Created by Fumitoshi Ogata on 01/02/16.
-//  Copyright (c) 2016 http://oggata.github.io All rights reserved.
-//
-
 var CutIn2 = cc.Node.extend({
     ctor: function(questLayer) {
         this._super();
@@ -442,7 +433,7 @@ var CutIn2 = cc.Node.extend({
                 this.seTime++;
                 if (this.seTime >= 22) {
                     this.seTime = 0;
-                    playSE008(this.questLayer.storage);
+                    //playSE008(this.questLayer.storage);
                 }
                 this.enterSprite.setVisible(false);
             }
@@ -450,26 +441,7 @@ var CutIn2 = cc.Node.extend({
             this.messageLabel.setString(_visibleString);
             this.messageLabel.setAnchorPoint(0, 1);
         }
-/*
-        if (this.tmpPosY < this.getPosition().y && this.effectTime < 30 * 1.5) {
-            this.spriteOpacity += 0.1;
-            if (this.spriteOpacity >= 1) {
-                this.spriteOpacity = 1;
-            }
-            this.setPosition(
-                this.getPosition().x, this.getPosition().y
-            );
-        }
-        if (this.effectTime >= 30 * 1.5) {
-            this.spriteOpacity -= 0.1;
-            if (this.spriteOpacity < 0) {
-                this.spriteOpacity = 0;
-            }
-        }
-        if (this.effectTime >= 30 * 20) {
-            this.setCutInVisible(false);
-        }
-*/
+
         this.effectTime++;
         this.setOpacity(this.spriteOpacity);
     },

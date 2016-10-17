@@ -13,6 +13,12 @@ var TopLayer = cc.Layer.extend({
         this.back.setAnchorPoint(0, 0);
         this.addChild(this.back);
 
+        //credit
+        this.credit = cc.Sprite.create("res/credit.png");
+        this.credit.setPosition(320,600);
+        this.addChild(this.credit);
+        this.credit.setVisible(false);
+
         this.messages = [];
         this.storage = new Storage();
         try {
@@ -52,7 +58,15 @@ var TopLayer = cc.Layer.extend({
             function() {
                 this.goToQuesetLayer();
             }, this);
-        gameButton.setPosition(320, 200);
+        gameButton.setPosition(320, 220);
+
+        var creditButton = new cc.MenuItemImage(
+            "res/button_credit.png",
+            "res/button_credit_on.png",
+            function() {
+                this.setCredit();
+            }, this);
+        creditButton.setPosition(320, 120);
 
         var scoreButton = new cc.MenuItemImage(
             "res/button_score.png",
@@ -65,7 +79,7 @@ var TopLayer = cc.Layer.extend({
         scoreButton.setPosition(320, 200);
 
         //var menu = new cc.Menu(gameButton, scoreButton);
-        var menu = new cc.Menu(gameButton);
+        var menu = new cc.Menu(gameButton,creditButton);
         menu.x = 0;
         menu.y = 0;
         this.addChild(menu, 1);
@@ -110,6 +124,14 @@ var TopLayer = cc.Layer.extend({
         initSDK();
         this.scheduleUpdate();
         return true;
+    },
+
+    setCredit:function(){
+        if(this.credit.isVisible() == true){
+            this.credit.setVisible(false);
+        }else{
+            this.credit.setVisible(true);
+        }
     },
 
     //シーンの切り替え----->

@@ -4,14 +4,42 @@ var mapDisplayNode = cc.Node.extend({
         this._super();
         this.game = game;
 
+        var floorData = this.game.storage.getStageNumber(this.game._stageNum);
+        var floorNum = floorData['floorNum'];
+        this.imageSide = "res/map_object_blue_001.png";
+        this.imageBack = "res/map_object_blue_003.png";
+        this.imageDoor = "res/map_object_blue_002.png";
+        var floorImageId = floorNum % 5;
+        if (floorImageId == 0) {
+            this.imageSide = "res/map_object_black_001.png";
+            this.imageBack = "res/map_object_black_003.png";
+            this.imageDoor = "res/map_object_black_002.png";
+        } else if(floorImageId == 1) {
+            this.imageSide = "res/map_object_blue_001.png";
+            this.imageBack = "res/map_object_blue_003.png";
+            this.imageDoor = "res/map_object_blue_002.png";
+        } else if(floorImageId == 2) {
+            this.imageSide = "res/map_object_yellow_001.png";
+            this.imageBack = "res/map_object_yellow_003.png";
+            this.imageDoor = "res/map_object_yellow_002.png";
+        } else if(floorImageId == 3) {
+            this.imageSide = "res/map_object_red_001.png";
+            this.imageBack = "res/map_object_red_003.png";
+            this.imageDoor = "res/map_object_red_002.png";
+        } else if(floorImageId == 4) {
+            this.imageSide = "res/map_object_green_001.png";
+            this.imageBack = "res/map_object_green_003.png";
+            this.imageDoor = "res/map_object_green_002.png";
+        }
+
         var frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/background2.png", cc.rect(0, 542 * i, 632, 542));
+            var frame = cc.SpriteFrame.create(this.imageBack, cc.rect(0, 542 * i, 632, 542));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.1);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.backgroundSprite = cc.Sprite.create("res/background2.png", cc.rect(0, 0, 660, 480));
+        this.backgroundSprite = cc.Sprite.create(this.imageBack, cc.rect(0, 0, 660, 480));
         this.backgroundSprite.runAction(this.ra);
 
         this.backgroundSprite.setAnchorPoint(0, 0);
@@ -20,12 +48,12 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_1.png", cc.rect(0, 480*i, 660, 480));
+            var frame = cc.SpriteFrame.create(this.imageSide, cc.rect(0, 480*i, 660, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.15);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectL1Sprite = cc.Sprite.create("res/basetype2_1.png", cc.rect(0, 0, 660, 480));
+        this.mapObjectL1Sprite = cc.Sprite.create(this.imageSide, cc.rect(0, 0, 660, 480));
         this.mapObjectL1Sprite.runAction(this.ra);
         this.mapObjectL1Sprite.setScale(0.4);
         this.mapObjectL1Sprite.setAnchorPoint(0, 0);
@@ -35,12 +63,12 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_1.png", cc.rect(0, 480*i, 660, 480));
+            var frame = cc.SpriteFrame.create(this.imageSide, cc.rect(0, 480*i, 660, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.08);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectR1Sprite = cc.Sprite.create("res/basetype2_1.png", cc.rect(0, 0, 660, 480));
+        this.mapObjectR1Sprite = cc.Sprite.create(this.imageSide, cc.rect(0, 0, 660, 480));
         this.mapObjectR1Sprite.runAction(this.ra);
         this.mapObjectR1Sprite.setFlippedX(true);
         this.mapObjectR1Sprite.setScale(0.4);
@@ -51,12 +79,12 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_1.png", cc.rect(0, 480 * i, 555, 480));
+            var frame = cc.SpriteFrame.create(this.imageSide, cc.rect(0, 480 * i, 555, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.12);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectC1Sprite = cc.Sprite.create("res/basetype2_1.png", cc.rect(0, 0, 555, 480));
+        this.mapObjectC1Sprite = cc.Sprite.create(this.imageSide, cc.rect(0, 0, 555, 480));
         this.mapObjectC1Sprite.runAction(this.ra);
 
         this.mapObjectC1Sprite.setScale(0.38);
@@ -67,12 +95,12 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_1.png", cc.rect(0, 480*i, 660, 480));
+            var frame = cc.SpriteFrame.create(this.imageSide, cc.rect(0, 480*i, 660, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.14);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectL2Sprite = cc.Sprite.create("res/basetype2_1.png", cc.rect(0, 0, 660, 480));
+        this.mapObjectL2Sprite = cc.Sprite.create(this.imageSide, cc.rect(0, 0, 660, 480));
         this.mapObjectL2Sprite.runAction(this.ra);
         this.mapObjectL2Sprite.setScale(0.64,0.64);
         this.mapObjectL2Sprite.setAnchorPoint(0,0);
@@ -82,12 +110,12 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_1.png", cc.rect(0, 480*i, 660, 480));
+            var frame = cc.SpriteFrame.create(this.imageSide, cc.rect(0, 480*i, 660, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.19);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectR2Sprite = cc.Sprite.create("res/basetype2_1.png", cc.rect(0, 0, 660, 480));
+        this.mapObjectR2Sprite = cc.Sprite.create(this.imageSide, cc.rect(0, 0, 660, 480));
         this.mapObjectR2Sprite.runAction(this.ra);
         this.mapObjectR2Sprite.setFlippedX(true);
         this.mapObjectR2Sprite.setScale(0.64,0.64);
@@ -98,12 +126,12 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_1.png", cc.rect(0, 480 * i, 555, 480));
+            var frame = cc.SpriteFrame.create(this.imageSide, cc.rect(0, 480 * i, 555, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.12);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectC2Sprite = cc.Sprite.create("res/basetype2_1.png", cc.rect(0, 0, 555, 480));
+        this.mapObjectC2Sprite = cc.Sprite.create(this.imageSide, cc.rect(0, 0, 555, 480));
         this.mapObjectC2Sprite.runAction(this.ra);
 
         this.mapObjectC2Sprite.setScale(0.64);
@@ -115,13 +143,13 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_1.png", cc.rect(0, 480*i, 660, 480));
+            var frame = cc.SpriteFrame.create(this.imageSide, cc.rect(0, 480*i, 660, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.09);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
 
-        this.mapObjectL3Sprite = cc.Sprite.create("res/basetype2_1.png", cc.rect(0, 0, 660, 480));
+        this.mapObjectL3Sprite = cc.Sprite.create(this.imageSide, cc.rect(0, 0, 660, 480));
         this.mapObjectL3Sprite.runAction(this.ra);
 
         this.mapObjectL3Sprite.setAnchorPoint(0,0);
@@ -131,12 +159,12 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_1.png", cc.rect(0, 480*i, 660, 480));
+            var frame = cc.SpriteFrame.create(this.imageSide, cc.rect(0, 480*i, 660, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.1);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectR3Sprite = cc.Sprite.create("res/basetype2_1.png", cc.rect(0, 0, 660, 480));
+        this.mapObjectR3Sprite = cc.Sprite.create(this.imageSide, cc.rect(0, 0, 660, 480));
         this.mapObjectR3Sprite.runAction(this.ra);
 
         this.mapObjectR3Sprite.setFlippedX(true);
@@ -147,27 +175,19 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_1.png", cc.rect(0, 480 * i, 555, 480));
+            var frame = cc.SpriteFrame.create(this.imageSide, cc.rect(0, 480 * i, 555, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.07);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectC3Sprite = cc.Sprite.create("res/basetype2_1.png", cc.rect(0, 0, 555, 480));
+        this.mapObjectC3Sprite = cc.Sprite.create(this.imageSide, cc.rect(0, 0, 555, 480));
         this.mapObjectC3Sprite.runAction(this.ra);
 
         this.mapObjectC3Sprite.setAnchorPoint(0, 0);
         this.mapObjectC3Sprite.setPosition(40, 40);
         this.mapObjectC3Sprite.setVisible(false);
         this.addChild(this.mapObjectC3Sprite);
-/*
-        this.mapObjectS2Sprite = cc.Sprite.create(
-            "res/map_finish_2.png"
-        );
-        this.mapObjectS2Sprite.setAnchorPoint(0, 0);
-        this.mapObjectS2Sprite.setPosition(0, 0);
-        this.mapObjectS2Sprite.setVisible(false);
-        this.addChild(this.mapObjectS2Sprite);
-*/
+
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
             var frame = cc.SpriteFrame.create("res/map_start.png", cc.rect(530 * i, 0, 530, 376));
@@ -183,15 +203,6 @@ var mapDisplayNode = cc.Node.extend({
         this.mapObjectS2Sprite.setScale(0.64);
         this.mapObjectS2Sprite.setVisible(false);
         this.addChild(this.mapObjectS2Sprite);
-/*
-        this.mapObjectS3Sprite = cc.Sprite.create(
-            "res/map_finish_3.png"
-        );
-        this.mapObjectS3Sprite.setAnchorPoint(0, 0);
-        this.mapObjectS3Sprite.setPosition(0, 0);
-        this.mapObjectS3Sprite.setVisible(false);
-        this.addChild(this.mapObjectS3Sprite);
-*/
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
@@ -207,23 +218,7 @@ var mapDisplayNode = cc.Node.extend({
         this.mapObjectS3Sprite.setPosition(40, 40);
         this.mapObjectS3Sprite.setVisible(false);
         this.addChild(this.mapObjectS3Sprite);
-/*
-        this.mapObjectF2Sprite = cc.Sprite.create(
-            "res/map_finish_2.png"
-        );
-        this.mapObjectF2Sprite.setAnchorPoint(0, 0);
-        this.mapObjectF2Sprite.setPosition(0, 0);
-        this.mapObjectF2Sprite.setVisible(false);
-        this.addChild(this.mapObjectF2Sprite);
 
-        this.mapObjectF3Sprite = cc.Sprite.create(
-            "res/map_finish_3.png"
-        );
-        this.mapObjectF3Sprite.setAnchorPoint(0, 0);
-        this.mapObjectF3Sprite.setPosition(0, 0);
-        this.mapObjectF3Sprite.setVisible(false);
-        this.addChild(this.mapObjectF3Sprite);
-*/
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
             var frame = cc.SpriteFrame.create("res/map_finish.png", cc.rect(530 * i, 0, 530, 376));
@@ -258,53 +253,32 @@ var mapDisplayNode = cc.Node.extend({
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_door.png", cc.rect(0, 480 * i, 555, 480));
+            var frame = cc.SpriteFrame.create(this.imageDoor, cc.rect(0, 480 * i, 555, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.07);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectD3Sprite = cc.Sprite.create("res/basetype2_door.png", cc.rect(0, 0, 555, 480));
+        this.mapObjectD3Sprite = cc.Sprite.create(this.imageDoor, cc.rect(0, 0, 555, 480));
         this.mapObjectD3Sprite.runAction(this.ra);
-
         this.mapObjectD3Sprite.setAnchorPoint(0, 0);
         this.mapObjectD3Sprite.setPosition(40, 40);
         this.mapObjectD3Sprite.setVisible(false);
         this.addChild(this.mapObjectD3Sprite);
-/*
-        //door
-        this.mapObjectD3Sprite = cc.Sprite.create("res/door_3.png", cc.rect(0, 0, 660, 480));
-        //this.mapObjectD3Sprite.runAction(this.ra);
-        //this.mapObjectD3Sprite.setAnchorPoint(0,0);
-        this.mapObjectD3Sprite.setPosition(320,200);
-        this.mapObjectD3Sprite.setVisible(false);
-        this.addChild(this.mapObjectD3Sprite);
-*/
-
 
         frameSeq = [];
         for (var i = 0; i < 5; i++) {
-            var frame = cc.SpriteFrame.create("res/basetype2_door.png", cc.rect(0, 480 * i, 555, 480));
+            var frame = cc.SpriteFrame.create(this.imageDoor, cc.rect(0, 480 * i, 555, 480));
             frameSeq.push(frame);
         }
         this.wa = cc.Animation.create(frameSeq, 0.12);
         this.ra = cc.RepeatForever.create(cc.Animate.create(this.wa));
-        this.mapObjectD2Sprite = cc.Sprite.create("res/basetype2_door.png", cc.rect(0, 0, 555, 480));
+        this.mapObjectD2Sprite = cc.Sprite.create(this.imageDoor, cc.rect(0, 0, 555, 480));
         this.mapObjectD2Sprite.runAction(this.ra);
-
         this.mapObjectD2Sprite.setScale(0.64);
         this.mapObjectD2Sprite.setAnchorPoint(0, 0);
         this.mapObjectD2Sprite.setPosition(135, 120);
         this.mapObjectD2Sprite.setVisible(false);
         this.addChild(this.mapObjectD2Sprite);
-/*
-        this.mapObjectD2Sprite = cc.Sprite.create("res/png.png", cc.rect(0, 0, 660, 480));
-        //this.mapObjectD3Sprite.runAction(this.ra);
-        //this.mapObjectD2Sprite.setAnchorPoint(0,0);
-        this.mapObjectD2Sprite.setPosition(320,200);
-        this.mapObjectD2Sprite.setVisible(false);
-        this.addChild(this.mapObjectD2Sprite);
-*/
-
     },
 
     setDisplay: function(tpos) {
