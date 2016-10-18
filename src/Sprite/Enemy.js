@@ -4,7 +4,6 @@ var Enemy = cc.Node.extend({
         this._super();
         this.game = game;
         this.posNum = posNum;
-
         //initialize
         this.level = enemyLevel;
         this.isBoss = isBoss;
@@ -23,18 +22,8 @@ var Enemy = cc.Node.extend({
         this.tmpY = this.sprite.getPosition().y;
         this.moveDirection = "up";
         this.mode = "monster";
-
         this.scaleCnt = 0;
         this.scaleRate = 1;
-        /*
-        if(isBoss == 0)
-        {
-            var _rand = getRandNumberFromRange(1,10);
-            if(_rand == 5){
-                this.mode = "human";
-            }
-        }
-        */
         this.humanCnt = 0;
         this.setVisible(false);
     },
@@ -44,7 +33,6 @@ var Enemy = cc.Node.extend({
         var enemyData = CONFIG.ENEMY[enemyLevel];
         if (this.isBoss == 1) {
             var _bossArrayNum = Math.ceil(this.game._stageNum / 5);
-            //cc.log("boss:" + _bossArrayNum);
             enemyData = CONFIG.BOSS[_bossArrayNum];
             this.hp = this.game.storage.getBossHpAmountByLevel(enemyLevel);
             this.maxHp = this.game.storage.getBossHpAmountByLevel(enemyLevel);

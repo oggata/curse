@@ -34,7 +34,7 @@ var Storage = cc.Class.extend({
         var data = new Object();
         data['floorNum'] = floorNum;
         data['roomNum']  = roomNum;
-        data['visibleNum']  = "F" + ("000" + stageNum).slice(-3) + "";
+        data['visibleNum']  = "" + ("000" + stageNum).slice(-3) + "F";
         return data;
     },
 

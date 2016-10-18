@@ -458,6 +458,11 @@ var GameLayer = cc.Layer.extend({
     },
 
     addEnemyByPos: function(posNum) {
+
+        /*
+            150F -> 150/3 = 50 > Enemy baseLevel:50 + 3 => 53までLevelが存在していればOK
+            150F -> Math.ceil(150 / 5) => 30までLevel存在していればOK 
+        */
         var _baseLevel = Math.ceil(this._stageNum / 3);
         var _level = getRandNumberFromRange(_baseLevel, _baseLevel + 2);
         if (this.isBossFloor == 1) {
@@ -721,7 +726,7 @@ var GameLayer = cc.Layer.extend({
             var _text = "この階の最終チェックポイントに到着した.\n";
             _text += "報酬として魂を " + Math.ceil(_reward) + " 得た.\n";
             _text += "塔の外に転送しています........................\n";
-            _text += "...........................................\n";
+            _text += "......................................................\n";
             this.addPlayerEscapeEffect();
             this.cutIn.setCutInText(_text);
             playBGM004(this.storage);

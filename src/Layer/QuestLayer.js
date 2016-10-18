@@ -13,9 +13,8 @@ var QuestLayer = cc.Layer.extend({
             this.storage.maxUnlockedStage = 1;
         }
         this.maxClearedFloor = this.storage.maxUnlockedStage;
-        //this.maxClearedFloor = 90;
-        if(this.maxClearedFloor > 5 * 12){
-            this.maxClearedFloor = 5 * 12;
+        if(this.maxClearedFloor > 150){
+            this.maxClearedFloor = 150;
         }
 
         if (this.storage.lastFloorNum > 0) {
@@ -274,7 +273,7 @@ var QuestLayer = cc.Layer.extend({
         this.header.mpGauge.update(this.storage.lastPlayerMp / 100);
         var _vFloorNum = ("000" + this.floorNumber).slice(-3);
         var floorData = this.storage.getStageNumber(this.floorNumber);
-        this.nextFloorLable.setString("START " + floorData['visibleNum'] + "F");
+        this.nextFloorLable.setString("START " + floorData['visibleNum'] + "");
     },
 
 
